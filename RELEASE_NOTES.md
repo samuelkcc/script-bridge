@@ -1,3 +1,12 @@
+## Unreleased local patch — build 2026092902
+
+- Block calculation comments while allowing script Comment steps and quoted literal data.
+- Smart Fix removes outer block-comment wrappers without deleting the enclosed calculation; ambiguous cases require manual review.
+- Show the bundle version and build in About.
+- Prevent line joining from inserting a space after `::` in field references. FileMaker treats that space as part of the field name and may comment out the calculation on paste.
+- Smart Fix repairs existing separator whitespace and outer calculation wrappers together, preserving quoted text and spaces within field names.
+- All 107 automated tests pass. Five affected field calculations passed a native FileMaker paste/copy check without comment wrappers; the temporary paste was undone.
+
 # FileMaker Script Bridge 2026.09.29
 
 Adds XLSX export options, whole-file data reads, and guided Smart Fix questions for incomplete AI-generated steps.

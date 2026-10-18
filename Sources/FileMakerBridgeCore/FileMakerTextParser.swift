@@ -25,7 +25,16 @@ public struct FileMakerTextParser: Sendable {
                     structures: &structures,
                     issues: &issues
                 )
-                steps.append(step)
+                if CalculationFieldReferences.violations(in: step) {
+                    issues.append(CompilationIssue(severity: .error, line: logicalLine.lineNumber,
+                                                   message: CalculationFieldReferences.message, source: logicalLine.text))
+                }
+                if CalculationComments.violations(in: step).isEmpty {
+                    steps.append(step)
+                } else {
+                    issues.append(CompilationIssue(severity: .error, line: logicalLine.lineNumber,
+                                                   message: CalculationComments.message, source: logicalLine.text))
+                }
 
             case .malformed(let message):
                 appendFallback(
@@ -81,6 +90,17 @@ public struct FileMakerTextParser: Sendable {
         }
 
         return (logicalLines, steps, issues)
+    }
+
+    func calculationCommentRepair(_ line: String) -> String? {
+        guard case .step(let step) = parseLine(line, preservedSteps: [:]) else { return nil }
+        if let unwrapped = CalculationComments.repair(line, step: step) {
+            return CalculationFieldReferences.repair(unwrapped)
+        }
+        if CalculationFieldReferences.violations(in: step) {
+            return CalculationFieldReferences.repair(line)
+        }
+        return nil
     }
 
     private func parseLine(

@@ -29,7 +29,7 @@ enum TextUtilities {
                 current = line
                 currentLineNumber = lineNumber
             } else {
-                current += " " + line
+                current = CalculationFieldReferences.joining(current, line)
             }
 
             squareDepth += squareBracketDelta(in: line)

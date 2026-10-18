@@ -70,6 +70,10 @@ public struct SmartFixReview: Sendable {
             let issues = result.issues.filter { $0.line == line.lineNumber }
             var suggestion: String?
             var reason = issues.map(\.message).joined(separator: "\n")
+            if let candidate = FileMakerTextParser().calculationCommentRepair(line.text), Self.isNativeReplacement(candidate) {
+                suggestion = candidate
+                reason += "\nKeep the calculation contents, remove any outer comment wrapper, and repair whitespace after :: outside quoted text. Review the field references before applying."
+            }
             if let body = TextUtilities.bracketBody(forPrefix: "Show Custom Dialog", in: line.text) {
                 var parts = DialogSyntax.components(body)
                 let defaultIndex = parts.firstIndex { TextUtilities.value(afterLabel: "Default Button:", in: $0) != nil }
@@ -134,7 +138,17 @@ public struct SmartFixReview: Sendable {
     }
 
     public static func isNativeReplacement(_ text: String) -> Bool {
-        let result = FileMakerXMLCompiler().compile(text, options: .init(convertUnsupportedLinesToComments: false))
+        let compiler = FileMakerXMLCompiler()
+        var result = compiler.compile(text, options: .init(convertUnsupportedLinesToComments: false))
+        // Validate a conditional replacement in a balanced context; the inserted
+        // replacement remains exactly the single step supplied by the user.
+        if result.logicalLines.count == 1, result.steps.count == 1 {
+            switch result.steps[0] {
+            case .ifStep: result = compiler.compile(text + "\nEnd If", options: .init(convertUnsupportedLinesToComments: false))
+            case .elseIf: result = compiler.compile("If [ 1 ]\n" + text + "\nEnd If", options: .init(convertUnsupportedLinesToComments: false))
+            default: break
+            }
+        }
         return result.canCopyToFileMaker && result.issues.isEmpty
             && result.steps.allSatisfy { if case .comment = $0 { return false }; return true }
     }

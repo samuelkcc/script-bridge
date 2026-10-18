@@ -377,3 +377,26 @@ on 2026-09-29 omitted the amount even when the step displayed one. Configure bou
 reads directly in FileMaker and verify them there. Do not remove an explicit amount
 to make a step compile. Unknown native XML is preserved for same-session return,
 although the bridge cannot restore parameters FileMaker omitted before copying.
+
+
+## Calculation comment rule
+
+When an AI draft splits a field reference immediately after `::`, the bridge joins
+the next line without inserting a space. FileMaker considers a space after `::`
+part of the field name and may wrap an unresolved calculation in `/* ... */` on
+paste. Existing separator whitespace is blocked for Smart Fix review; Smart Fix
+can repair it together with an outer comment wrapper. Quoted text and spaces
+within field names are preserved. The bridge cannot verify that a field exists
+in the destination database; verify references in FileMaker after pasting.
+
+Calculations must contain executable FileMaker code only. The bridge blocks
+clipboard creation if a calculation contains `/* ... */` or `//` comments,
+including calculation nodes in preserved native XML. Separate `#` script Comment
+steps are allowed. Quoted strings, URLs, and other literal data are unchanged.
+
+Smart Fix can remove an outer `/* ... */` wrapper around an entire calculation,
+keeping its contents, field names, variable names, and surrounding workflow.
+Mixed inline comments, line comments, incomplete wrappers, and ambiguous nested
+comments require manual review; the bridge never deletes their contents as an
+automatic repair. Review and apply the proposed replacement before updating the
+FileMaker clipboard.

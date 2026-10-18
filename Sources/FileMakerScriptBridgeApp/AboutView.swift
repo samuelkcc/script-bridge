@@ -23,7 +23,7 @@ struct AboutView: View {
             VStack(spacing: 5) {
                 Text("FileMaker Script Bridge")
                     .font(.title2.weight(.semibold))
-                Text("Version 2026.08.11 · Developer: SCKC")
+                Text("Version \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "Development") · Build \(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? "local") · Developer: SCKC")
                     .font(.subheadline.monospacedDigit())
                     .foregroundStyle(.secondary)
             }
