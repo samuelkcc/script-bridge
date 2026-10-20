@@ -1,0 +1,45 @@
+FileMaker Script Bridge 1.0.0
+Copyright © 2026 SCKC
+SPDX-License-Identifier: GPL-3.0-or-later
+
+The original application code, shared interface and conversion worker are
+licensed under the GNU General Public License version 3 or, at your option,
+any later version. See LICENSE for the complete terms and warranty disclaimer.
+This desktop edition modifies and extends FileMaker Script Bridge (2026.09.29).
+
+Built independently by SCKC as a hobby project. FileMaker and FileMaker Pro
+are trademarks of Claris International Inc. This project is not affiliated
+with, endorsed by or supported by Claris International Inc.
+
+Third-party dependencies retain their original licences. The desktop package
+includes a searchable offline component notice viewer in About → Licences.
+Scripts/collect-desktop-notices.py generates the inventory from Cargo.lock
+and the exact local package sources used to build the app. Release packaging
+must generate it successfully. The build tools and operating-system runtime
+requirements are documented in Documentation/DESKTOP_ARCHITECTURE.md.
+
+No AniCanto application code, artwork, fonts or MIT application licence
+are incorporated. The interface takes inspiration from its shared studio
+layout. This app uses system fonts and original inline SVG symbols.
+
+Source: https://github.com/samuelkcc/filemaker-script-bridge
+When redistributing a binary, provide its complete corresponding source,
+including the matching conversion worker, interface, notices and build scripts,
+under the terms of the GPL. This notice does not replace any licence text.
+
+Optional AI generation
+Qwen3.5 9B and Qwen3.5 35B-A3B model weights use Apache-2.0.
+The app offers pinned Q4_K_M conversions published by Unsloth, identifying
+the converter separately from the original Qwen publisher. Model weights
+are downloaded only when chosen and are not bundled in the application.
+Each exact download is verified against its recorded size and SHA-256.
+
+The bundled llama.cpp inference engine uses MIT, with its original licence
+and third-party component notices retained. Its binary release, source
+revision and archive checksums are pinned in Desktop/ai/catalogue.json.
+The matching inference source archive is retained with release materials.
+Model and engine licences do not replace the application GPL licence.
+
+The playground uses the bridge's own syntax reference and supported-step
+list as generation context. AI-generated scripts still require review and
+FileMaker testing. The app does not execute generated scripts in a database.
