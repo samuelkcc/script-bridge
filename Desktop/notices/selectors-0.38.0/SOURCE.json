@@ -1,0 +1,12 @@
+{
+  "crate": "selectors",
+  "version": "0.38.0",
+  "revision": "572ecba2d1600e7c3d490586692a209faf703baa",
+  "sources": [
+    {
+      "file": "LICENSE-MPL-2.0",
+      "url": "https://www.mozilla.org/media/MPL/2.0/index.txt",
+      "sha256": "3f3d9e0024b1921b067d6f7f88deb4a60cbe7a78e76c64e3f1d7fc3b779b9d04"
+    }
+  ]
+}

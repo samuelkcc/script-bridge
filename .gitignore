@@ -4,3 +4,12 @@ dist/
 tmp/
 *.fmp12
 Documentation/HANDOVER_*.md
+Desktop/src-tauri/target/
+Desktop/src-tauri/gen/
+Desktop/src-tauri/binaries/*
+!Desktop/src-tauri/binaries/.gitkeep
+Desktop/node_modules/
+Desktop/web/assets/notices.json
+
+__pycache__/
+*.pyc

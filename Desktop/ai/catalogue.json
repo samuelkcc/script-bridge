@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "runtime": {
+    "name": "llama.cpp",
+    "version": "b11669",
+    "revision": "620d2225cc436ab0b001e3200e590e3b286ef9ab",
+    "license": "MIT",
+    "sourceURL": "https://github.com/ggml-org/llama.cpp/tree/620d2225cc436ab0b001e3200e590e3b286ef9ab",
+    "assets": {
+      "macos-arm64": {
+        "filename": "llama-b11669-bin-macos-arm64.tar.gz",
+        "bytes": 12191582,
+        "sha256": "dbed55493d72bc1ba2babc8770d669c2289b5bc4ee9fb2a4dfc158d45b7d13fd",
+        "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11669/llama-b11669-bin-macos-arm64.tar.gz"
+      },
+      "macos-x64": {
+        "filename": "llama-b11669-bin-macos-x64.tar.gz",
+        "bytes": 11677404,
+        "sha256": "cab28238d78158109b48deb27b05d50e0dcef56275d2e76da9ca8281526c7532",
+        "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11669/llama-b11669-bin-macos-x64.tar.gz"
+      },
+      "windows-x64": {
+        "filename": "llama-b11669-bin-win-cpu-x64.zip",
+        "bytes": 19537886,
+        "sha256": "37b3efcf962847ca869745fd4ccf7f5e7e8dacfeff9fa3523b4ca8cdc66d632b",
+        "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11669/llama-b11669-bin-win-cpu-x64.zip"
+      }
+    },
+    "sourceArchiveSHA256": "1d4a987d9bd048f6e93107e838026438df70fbde237fc0c69c63d600512b4bd9",
+    "sourceArchiveURL": "https://codeload.github.com/ggml-org/llama.cpp/tar.gz/620d2225cc436ab0b001e3200e590e3b286ef9ab",
+    "sourceArchiveFile": "llama-source-620d2225.tar.gz"
+  },
+  "models": [
+    {
+      "id": "9b",
+      "name": "Qwen3.5 9B",
+      "publisher": "Qwen",
+      "converter": "Unsloth",
+      "repository": "unsloth/Qwen3.5-9B-GGUF",
+      "revision": "3885219b6810b007914f3a7950a8d1b469d598a5",
+      "filename": "Qwen3.5-9B-Q4_K_M.gguf",
+      "bytes": 5680522464,
+      "sha256": "03b74727a860a56338e042c4420bb3f04b2fec5734175f4cb9fa853daf52b7e8",
+      "url": "https://huggingface.co/unsloth/Qwen3.5-9B-GGUF/resolve/3885219b6810b007914f3a7950a8d1b469d598a5/Qwen3.5-9B-Q4_K_M.gguf",
+      "license": "Apache-2.0",
+      "recommendedRAMGB": 16,
+      "estimatedModelGB": 10,
+      "sourceURL": "https://huggingface.co/Qwen/Qwen3.5-9B"
+    },
+    {
+      "id": "35b",
+      "name": "Qwen3.5 35B-A3B",
+      "publisher": "Qwen",
+      "converter": "Unsloth",
+      "repository": "unsloth/Qwen3.5-35B-A3B-GGUF",
+      "revision": "bc014a17be43adabd7066b7a86075ff935c6a4e2",
+      "filename": "Qwen3.5-35B-A3B-Q4_K_M.gguf",
+      "bytes": 22016023168,
+      "sha256": "3b46d1066bc91cc2d613e3bc22ce691dd77e6f0d33c9060690d24ce6de494375",
+      "url": "https://huggingface.co/unsloth/Qwen3.5-35B-A3B-GGUF/resolve/bc014a17be43adabd7066b7a86075ff935c6a4e2/Qwen3.5-35B-A3B-Q4_K_M.gguf",
+      "license": "Apache-2.0",
+      "recommendedRAMGB": 48,
+      "estimatedModelGB": 30,
+      "sourceURL": "https://huggingface.co/Qwen/Qwen3.5-35B-A3B"
+    }
+  ]
+}

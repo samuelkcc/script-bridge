@@ -1,3 +1,23 @@
+## FileMaker Script Bridge 1.0.0 (20 October 2026)
+
+- Mac build 2026102004: compile the app icon with Apple's icon compiler and use an explicit, build-specific icon filename to fix Finder's generic application placeholder.
+- Update the purple bridge app icon on both platforms, place Script workspace before AI playground, and make Copy to FileMaker a prominent labelled action with a new clipboard/arrow symbol.
+- Provide a Windows x64 installer with the native host, conversion worker and required runtime DLLs; native Windows acceptance remains pending.
+- Add model selection with automatic download/resume, plus removal of installed models or partial downloads to free disk space.
+- Add two draft entry paths: paste from another AI tool, or use the Qwen playground with optional verified 9B/35B downloads.
+- Ground generation in the bridge syntax guide and supported-step catalogue, with optional database context, streamed drafts, validation and one repair attempt.
+- Add separate Qwen/llama.cpp licence notices and update About to describe downloads and local AI operation. Remove the “Made to stay local” sidebar note.
+- Adopt semantic version 1.0.0 consistently in the app, package manifests and GitHub-facing documentation.
+- Build 2026102003: fix the unnecessary outer window scrollbar by containing the app shell and anchoring the screen-reader announcement element. Content panels still scroll when needed.
+
+- Add an AniCanto-inspired shared Tauri/Rust desktop shell with welcome, workspace, searchable step reference and quick guide.
+- Add light, dark and system appearance; About presents the independent SCKC hobby project and local privacy model.
+- Preserve GPL-3.0-or-later and include a full offline application licence, original application, inference engine and model notices, provenance checks and matching source archives.
+- Run the existing Swift engine through a persistent JSON-lines worker, retaining Smart Fix questions, strict mode and session-bound native XML preservation.
+- Add native Rust clipboard adapters for macOS and Windows, including Windows FileMaker length-prefixed payload handling. The host recompiles immediately before exporting native steps.
+- Provide native build/package scripts and a manual Mac/Windows CI workflow. The Mac build targets Apple Silicon; Windows host and worker cross-compilation pass and an x64 installer is provided for native Windows and FileMaker acceptance testing.
+- Automated checks: 107 existing Swift tests, 5 JavaScript/worker tests and 10 Rust host/knowledge/codec tests pass locally. Separate integration checks cover download resume and checksum rejection, plus real Qwen 9B generation through the Swift validator. The 35B model has not been inference-tested. See `Documentation/DESKTOP_ARCHITECTURE.md` for the Rust assessment, measurements and release boundary.
+
 ## Unreleased local patch — build 2026092902
 
 - Block calculation comments while allowing script Comment steps and quoted literal data.

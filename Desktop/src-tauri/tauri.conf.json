@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "FileMaker Script Bridge",
+  "version": "1.0.0",
+  "identifier": "com.sckc.filemaker-script-bridge",
+  "build": {
+    "frontendDist": "../web"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "FileMaker Script Bridge",
+        "width": 1440,
+        "height": 900,
+        "minWidth": 960,
+        "minHeight": 640,
+        "backgroundColor": "#f5f6fa"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' ipc: http://ipc.localhost; object-src 'none'; base-uri 'none'; frame-src 'none'"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": [
+      "app",
+      "nsis"
+    ],
+    "shortDescription": "Local FileMaker script clipboard workspace",
+    "category": "DeveloperTool",
+    "copyright": "Copyright \u00a9 2026 SCKC. GPL-3.0-or-later.",
+    "externalBin": [
+      "binaries/FileMakerBridgeWorker"
+    ],
+    "resources": {
+      "../../LICENSE": "LICENSE",
+      "../../NOTICE.txt": "NOTICE.txt"
+    },
+    "icon": [
+      "icons/icon.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "macOS": {
+      "minimumSystemVersion": "13.0"
+    }
+  }
+}

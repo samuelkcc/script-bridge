@@ -1,0 +1,1298 @@
+[
+  {
+    "category": "Control script steps",
+    "name": "Allow User Abort",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/allow-user-abort.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Commit Transaction",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/commit-transaction.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Configure Local Notification",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/configure-local-notification.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Configure NFC Reading",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/configure-nfc.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Configure Persistent Data",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/configure-persistent-data.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Configure Region Monitor Script",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/configure-region-monitor-script.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Else",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/else.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Else If",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/else-if.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "End If",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/end-if.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "End Loop",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/end-loop.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Exit Loop If",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/exit-loop-if.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Exit Script",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/exit-script.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Halt Script",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/halt-script.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "If",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/if-script-step.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Install OnTimer Script",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/install-ontimer-script.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Loop",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/loop.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Open Transaction",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/open-transaction.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Pause/Resume Script",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/pause-resume-script.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Perform Script",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/perform-script.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Perform Script On Server",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/perform-script-on-server.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Perform Script On Server with Callback",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/perform-script-on-server-callback.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Revert Transaction",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/revert-transaction.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Set Error Capture",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/set-error-capture.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Set Error Logging",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/set-error-logging.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Set Layout Object Animation",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/set-layout-object-animation.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Set Revert Transaction on Error",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/set-revert-transaction-on-error.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Set Variable",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/set-variable.html"
+  },
+  {
+    "category": "Control script steps",
+    "name": "Trigger Claris Connect Flow",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/trigger-claris-connect-flow.html"
+  },
+  {
+    "category": "Navigation script steps",
+    "name": "Close Popover",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/close-popover.html"
+  },
+  {
+    "category": "Navigation script steps",
+    "name": "Enter Browse Mode",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/enter-browse-mode.html"
+  },
+  {
+    "category": "Navigation script steps",
+    "name": "Enter Find Mode",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/enter-find-mode.html"
+  },
+  {
+    "category": "Navigation script steps",
+    "name": "Enter Preview Mode",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/enter-preview-mode.html"
+  },
+  {
+    "category": "Navigation script steps",
+    "name": "Go to Field",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/go-to-field.html"
+  },
+  {
+    "category": "Navigation script steps",
+    "name": "Go to Layout",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/go-to-layout.html"
+  },
+  {
+    "category": "Navigation script steps",
+    "name": "Go to List of Records",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/go-to-list-of-records.html"
+  },
+  {
+    "category": "Navigation script steps",
+    "name": "Go to Next Field",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/go-to-next-field.html"
+  },
+  {
+    "category": "Navigation script steps",
+    "name": "Go to Object",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/go-to-object.html"
+  },
+  {
+    "category": "Navigation script steps",
+    "name": "Go to Portal Row",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/go-to-portal-row.html"
+  },
+  {
+    "category": "Navigation script steps",
+    "name": "Go to Previous Field",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/go-to-previous-field.html"
+  },
+  {
+    "category": "Navigation script steps",
+    "name": "Go to Record/Request/Page",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/go-to-record-request-page.html"
+  },
+  {
+    "category": "Navigation script steps",
+    "name": "Go to Related Record",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/go-to-related-record.html"
+  },
+  {
+    "category": "Editing script steps",
+    "name": "Clear",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/clear.html"
+  },
+  {
+    "category": "Editing script steps",
+    "name": "Copy",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/copy.html"
+  },
+  {
+    "category": "Editing script steps",
+    "name": "Cut",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/cut.html"
+  },
+  {
+    "category": "Editing script steps",
+    "name": "Paste",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/paste.html"
+  },
+  {
+    "category": "Editing script steps",
+    "name": "Perform Find/Replace",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/perform-find-replace.html"
+  },
+  {
+    "category": "Editing script steps",
+    "name": "Select All",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/select-all.html"
+  },
+  {
+    "category": "Editing script steps",
+    "name": "Set Selection",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/set-selection.html"
+  },
+  {
+    "category": "Editing script steps",
+    "name": "Undo/Redo",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/undo-redo.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Export Field Contents",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/export-field-contents.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Insert Audio/Video",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/insert-audio-video.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Insert Calculated Result",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/insert-calculated-result.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Insert Current Date",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/insert-current-date.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Insert Current Time",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/insert-current-time.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Insert Current User Name",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/insert-current-user-name.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Insert File",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/insert-file.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Insert from Device",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/insert-from-device.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Insert from Index",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/insert-from-index.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Insert from Last Visited",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/insert-from-last-visited.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Insert from URL",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/insert-from-url.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Insert PDF",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/insert-pdf.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Insert Picture",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/insert-picture.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Insert Text",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/insert-text.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Relookup Field Contents",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/relookup-field-contents.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Replace Field Contents",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/replace-field-contents.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Set Field",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/set-field.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Set Field By Name",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/set-field-by-name.html"
+  },
+  {
+    "category": "Fields script steps",
+    "name": "Set Next Serial Value",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/set-next-serial-value.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "Commit Records/Requests",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/commit-records-requests.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "Copy All Records/Requests",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/copy-all-records-requests.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "Copy Record/Request",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/copy-record-request.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "Delete All Records",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/delete-all-records.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "Delete Portal Row",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/delete-portal-row.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "Delete Record/Request",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/delete-record-request.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "Duplicate Record/Request",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/duplicate-record-request.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "Export Records",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/export-records.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "Import Records",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/import-records.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "New Record/Request",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/new-record-request.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "Open Record/Request",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-record-request.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "Revert Record/Request",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/revert-record-request.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "Save Records as Excel",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/save-records-as-excel.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "Save Records as JSONL",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/save-records-as-jsonl.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "Save Records as Snapshot Link",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/save-records-as-snapshot-link.html"
+  },
+  {
+    "category": "Records script steps",
+    "name": "Truncate Table",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/truncate-table.html"
+  },
+  {
+    "category": "Found Sets script steps",
+    "name": "Constrain Found Set",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/constrain-found-set.html"
+  },
+  {
+    "category": "Found Sets script steps",
+    "name": "Extend Found Set",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/extend-found-set.html"
+  },
+  {
+    "category": "Found Sets script steps",
+    "name": "Find Matching Records",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/find-matching-records.html"
+  },
+  {
+    "category": "Found Sets script steps",
+    "name": "Modify Last Find",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/modify-last-find.html"
+  },
+  {
+    "category": "Found Sets script steps",
+    "name": "Omit Multiple Records",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/omit-multiple-records.html"
+  },
+  {
+    "category": "Found Sets script steps",
+    "name": "Omit Record",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/omit-record.html"
+  },
+  {
+    "category": "Found Sets script steps",
+    "name": "Perform Find",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/perform-find.html"
+  },
+  {
+    "category": "Found Sets script steps",
+    "name": "Perform Quick Find",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/perform-quick-find.html"
+  },
+  {
+    "category": "Found Sets script steps",
+    "name": "Show All Records",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/show-all-records.html"
+  },
+  {
+    "category": "Found Sets script steps",
+    "name": "Show Omitted Only",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/show-omitted-only.html"
+  },
+  {
+    "category": "Found Sets script steps",
+    "name": "Sort Records",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/sort-records.html"
+  },
+  {
+    "category": "Found Sets script steps",
+    "name": "Sort Records by Field",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/sort-records-by-field.html"
+  },
+  {
+    "category": "Found Sets script steps",
+    "name": "Unsort Records",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/unsort-records.html"
+  },
+  {
+    "category": "Windows script steps",
+    "name": "Adjust Window",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/adjust-window.html"
+  },
+  {
+    "category": "Windows script steps",
+    "name": "Arrange All Windows",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/arrange-all-windows.html"
+  },
+  {
+    "category": "Windows script steps",
+    "name": "Close Window",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/close-window.html"
+  },
+  {
+    "category": "Windows script steps",
+    "name": "Freeze Window",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/freeze-window.html"
+  },
+  {
+    "category": "Windows script steps",
+    "name": "Move/Resize Window",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/move-resize-window.html"
+  },
+  {
+    "category": "Windows script steps",
+    "name": "New Window",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/new-window.html"
+  },
+  {
+    "category": "Windows script steps",
+    "name": "Refresh Window",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/refresh-window.html"
+  },
+  {
+    "category": "Windows script steps",
+    "name": "Scroll Window",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/scroll-window.html"
+  },
+  {
+    "category": "Windows script steps",
+    "name": "Select Window",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/select-window.html"
+  },
+  {
+    "category": "Windows script steps",
+    "name": "Set Window Title",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/set-window-title.html"
+  },
+  {
+    "category": "Windows script steps",
+    "name": "Set Zoom Level",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/set-zoom-level.html"
+  },
+  {
+    "category": "Windows script steps",
+    "name": "Show/Hide Menubar",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/show-hide-menubar.html"
+  },
+  {
+    "category": "Windows script steps",
+    "name": "Show/Hide Text Ruler",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/show-hide-text-ruler.html"
+  },
+  {
+    "category": "Windows script steps",
+    "name": "Show/Hide Toolbars",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/show-hide-toolbars.html"
+  },
+  {
+    "category": "Windows script steps",
+    "name": "View As",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/view-as.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Close Data File",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/close-data-file.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Close File",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/close-file.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Convert File",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/convert-file.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Create Data File",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/create-data-file.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Delete File",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/delete-file.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Get Data File Position",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/get-data-file-position.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Get File Exists",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/get-file-exists.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Get File Size",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/get-file-size.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "New File",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/new-file.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Open Data File",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-data-file.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Open File",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/open-file.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Print",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/print.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Print Setup",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/print-setup.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Read from Data File",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/read-from-data-file.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Recover File",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/recover-file.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Rename File",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/rename-file.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Save a Copy as",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/save-a-copy-as.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Save a Copy as XML",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/save-a-copy-as-xml.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Set Data File Position",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/set-data-file-position.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Set Multi-User",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/set-multi-user.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Set Use System Formats",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/set-use-system-formats.html"
+  },
+  {
+    "category": "Files script steps",
+    "name": "Write to Data File",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/write-to-data-file.html"
+  },
+  {
+    "category": "Accounts script steps",
+    "name": "Add Account",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/add-account.html"
+  },
+  {
+    "category": "Accounts script steps",
+    "name": "Change Password",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/change-password.html"
+  },
+  {
+    "category": "Accounts script steps",
+    "name": "Delete Account",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/delete-account.html"
+  },
+  {
+    "category": "Accounts script steps",
+    "name": "Enable Account",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/enable-account.html"
+  },
+  {
+    "category": "Accounts script steps",
+    "name": "Re-Login",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/re-login.html"
+  },
+  {
+    "category": "Accounts script steps",
+    "name": "Reset Account Password",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/reset-account-password.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Configure AI Account",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/configure-ai-account.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Configure Machine Learning Model",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/configure-machine-learning-model.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Configure Prompt Template",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/configure-prompt-template.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Configure RAG Account",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/configure-rag-account.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Configure Regression Model",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/configure-regression-model.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Fine-Tune Model",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/fine-tune-model.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Generate Response from Model",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/generate-response-from-model.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Insert Embedding",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/insert-embedding.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Insert Embedding in Found Set",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/insert-embedding-in-found-set.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Insert Image Caption",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/insert-image-caption.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Insert Image Captions in Found Set",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/insert-image-captions-in-found-set.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Perform Find by Natural Language",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/perform-find-by-natural-language.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Perform RAG Action",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/perform-rag-action.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Perform Semantic Find",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/perform-semantic-find.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Perform SQL Query by Natural Language",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/perform-sql-query-by-natural-language.html"
+  },
+  {
+    "category": "Artificial intelligence script steps",
+    "name": "Set AI Call Logging",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/set-ai-call-logging.html"
+  },
+  {
+    "category": "Spelling script steps",
+    "name": "Check Found Set",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/check-found-set.html"
+  },
+  {
+    "category": "Spelling script steps",
+    "name": "Check Record",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/check-record.html"
+  },
+  {
+    "category": "Spelling script steps",
+    "name": "Check Selection",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/check-selection.html"
+  },
+  {
+    "category": "Spelling script steps",
+    "name": "Correct Word",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/correct-word.html"
+  },
+  {
+    "category": "Spelling script steps",
+    "name": "Edit User Dictionary",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/edit-user-dictionary.html"
+  },
+  {
+    "category": "Spelling script steps",
+    "name": "Select Dictionaries",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/select-dictionaries.html"
+  },
+  {
+    "category": "Spelling script steps",
+    "name": "Set Dictionary",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/set-dictionary.html"
+  },
+  {
+    "category": "Spelling script steps",
+    "name": "Spelling Options",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/spelling-options.html"
+  },
+  {
+    "category": "PDF files script steps",
+    "name": "Append PDF",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/append-pdf.html"
+  },
+  {
+    "category": "PDF files script steps",
+    "name": "Cancel PDF",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/cancel-pdf.html"
+  },
+  {
+    "category": "PDF files script steps",
+    "name": "Close PDF",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/close-pdf.html"
+  },
+  {
+    "category": "PDF files script steps",
+    "name": "Create PDF",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/create-pdf.html"
+  },
+  {
+    "category": "PDF files script steps",
+    "name": "Open PDF",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/open-pdf.html"
+  },
+  {
+    "category": "PDF files script steps",
+    "name": "Print PDF",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/print-pdf.html"
+  },
+  {
+    "category": "PDF files script steps",
+    "name": "Save Records as PDF",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/save-records-as-pdf.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open Edit Saved Finds",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-edit-saved-finds.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open Favorites",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-my-apps.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open File Options",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-file-options.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open Find/Replace",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-find-replace.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open Help",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-help.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open Hosts",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-hosts.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open Manage Containers",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-manage-containers.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open Manage Data Sources",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-manage-data-sources.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open Manage Database",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-manage-database.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open Manage Layouts",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-manage-layouts.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open Manage Themes",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-manage-themes.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open Manage Value Lists",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-manage-value-lists.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open Settings",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-preferences.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open Script Workspace",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-script-workspace.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open Sharing",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/open-sharing.html"
+  },
+  {
+    "category": "Open Menu Item script steps",
+    "name": "Open Upload To Host",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/upload-to-server.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "# (Comment)",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/comment.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Allow Formatting Bar",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/allow-formatting-bar.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "AVPlayer Play",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/avplayer-play.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "AVPlayer Set Options",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/avplayer-set-options.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "AVPlayer Set Playback State",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/avplayer-set-playback-state.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Beep",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/beep.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Dial Phone",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/dial-phone.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Enable Touch Keyboard",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/enable-touch-keyboard.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Execute FileMaker Data API",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/execute-filemaker-data-api.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Execute SQL",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/execute-sql.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Exit Application",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/exit-application.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Flush Cache to Disk",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/flush-cache-to-disk.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Flush Web Viewer Cookies",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/flush-web-viewer-cookies.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Get Folder Path",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/get-directory.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Install Menu Set",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/install-menu-set.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Install Plug-In File",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/install-plug-in-file.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Open URL",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/open-url.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Perform AppleScript (macOS)",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/perform-applescript-os-x.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Perform JavaScript in Web Viewer",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/perform-javascript-in-web-viewer.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Refresh Object",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/refresh-object.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Refresh Portal",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/refresh-portal.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Save a Copy as Add-on Package",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/save-a-copy-as-add-on-package.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Send DDE Execute (Windows)",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/send-dde-execute-windows.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Send Event",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/send-event.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Send Mail",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/send-mail.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Set Session Identifier",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/set-session-identifier.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Set Web Viewer",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/set-web-viewer.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Show Custom Dialog",
+    "support": "editableSubset",
+    "url": "https://help.claris.com/en/pro-help/content/show-custom-dialog.html"
+  },
+  {
+    "category": "Miscellaneous script steps",
+    "name": "Speak (macOS)",
+    "support": "preserveOnly",
+    "url": "https://help.claris.com/en/pro-help/content/speak-os-x.html"
+  }
+]

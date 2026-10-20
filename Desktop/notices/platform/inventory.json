@@ -1,0 +1,92 @@
+{
+  "entries": [
+    {
+      "name": "Swift Windows runtime",
+      "version": "6.4.0",
+      "license": "Apache-2.0 WITH Swift-exception",
+      "file": "Swift-LICENSE.txt",
+      "source": "https://download.swift.org/swift-6.4.0-release/windows10/swift-6.4.0-RELEASE/swift-6.4.0-RELEASE-windows10.exe",
+      "sha256": "770af8291f708538d8ff885a0bbc4e045cd700531741c4f99528d435c14d7f55"
+    },
+    {
+      "name": "Swift Corelibs Foundation / FoundationXML",
+      "version": "6.4.0",
+      "license": "Apache-2.0 WITH Swift-exception",
+      "file": "Foundation-LICENSE.txt",
+      "source": "https://raw.githubusercontent.com/swiftlang/swift-corelibs-foundation/swift-6.4.0-RELEASE/LICENSE",
+      "sha256": "0ca84095d1de77cad1a866ebbad28f8db98a0826c6055d92b0608c5baa1643e2"
+    },
+    {
+      "name": "Swift Foundation Essentials / Internationalization",
+      "version": "Runtime supplied with Swift 6.4.0",
+      "license": "Apache-2.0 WITH Swift-exception",
+      "file": "Foundation-Essentials-LICENSE.md",
+      "source": "https://api.github.com/repos/swiftlang/swift-foundation/git/blobs/004d67aff35d05d06650d50bf14a7ac789557e7c",
+      "sha256": "2245a990b635558be210fb3eb4f8a6f7a49aebc0fefbf5859146a65ddc7ddcf3"
+    },
+    {
+      "name": "Swift Foundation attribution",
+      "version": "Upstream notice snapshot",
+      "license": "See Foundation licence",
+      "file": "Foundation-NOTICE.txt",
+      "source": "https://api.github.com/repos/swiftlang/swift-foundation/git/blobs/3db00abbfd019be6e9325437d4cc6e2287f79867",
+      "sha256": "2ac3ba6824e7e22f846a4425f532e02f7dd8ab9923f39508c270c57b38bad275"
+    },
+    {
+      "name": "Swift Foundation ICU wrapper",
+      "version": "Runtime supplied with Swift 6.4.0",
+      "license": "Apache-2.0 WITH Swift-exception",
+      "file": "Foundation-ICU-LICENSE.md",
+      "source": "https://api.github.com/repos/swiftlang/swift-foundation-icu/git/blobs/004d67aff35d05d06650d50bf14a7ac789557e7c",
+      "sha256": "2245a990b635558be210fb3eb4f8a6f7a49aebc0fefbf5859146a65ddc7ddcf3"
+    },
+    {
+      "name": "ICU and Unicode components",
+      "version": "Upstream licence snapshot 77.1; bundled via Swift 6.4.0",
+      "license": "Unicode-3.0 and original third-party notices",
+      "file": "ICU-LICENSE.txt",
+      "source": "https://raw.githubusercontent.com/unicode-org/icu/release-77-1/LICENSE",
+      "sha256": "451167c55c0fa447cc2d5632714f5e3c567fe4f1e1badefab2c1333852198aca"
+    },
+    {
+      "name": "Swift Dispatch / Blocks runtime",
+      "version": "6.4.0",
+      "license": "Apache-2.0 WITH Swift-exception",
+      "file": "Dispatch-LICENSE.txt",
+      "source": "https://raw.githubusercontent.com/swiftlang/swift-corelibs-libdispatch/swift-6.4.0-RELEASE/LICENSE",
+      "sha256": "0ca84095d1de77cad1a866ebbad28f8db98a0826c6055d92b0608c5baa1643e2"
+    },
+    {
+      "name": "libxml2 embedded by FoundationXML",
+      "version": "Upstream copyright snapshot 2.14.6; bundled via Swift 6.4.0",
+      "license": "MIT",
+      "file": "libxml2-Copyright.txt",
+      "source": "https://raw.githubusercontent.com/GNOME/libxml2/v2.14.6/Copyright",
+      "sha256": "5d4873884a890122a4b9b20ad56ac6f7da1d796a5bfcf04a427970ac96217626"
+    },
+    {
+      "name": "LLVM OpenMP (libomp.dll)",
+      "version": "Bundled in llama.cpp b11669; upstream licence snapshot 20.1.8",
+      "license": "Apache-2.0 WITH LLVM-exception",
+      "file": "OpenMP-LICENSE.txt",
+      "source": "https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-20.1.8/openmp/LICENSE.TXT",
+      "sha256": "fdad1758a9e1f9d5a81e18879b3406772115edc92c24bfa36b70c654f325e8e4"
+    },
+    {
+      "name": "Microsoft Visual C++ runtime",
+      "version": "Runtime DLLs distributed by Swift 6.4.0",
+      "license": "Microsoft Visual C++ Runtime terms",
+      "file": "Visual-C-Runtime-LICENSE.txt",
+      "source": "https://visualstudio.microsoft.com/wp-content/uploads/2021/09/Visual-C-Runtime-2015-2022-License-1.docx",
+      "sha256": "ed875263593823eb4b685cd543eda0ab075a6f57a76f7718908f2237466c442f"
+    },
+    {
+      "name": "NSIS installer stub and zlib compression",
+      "version": "3.13",
+      "license": "Zlib; complete original NSIS notices included",
+      "file": "NSIS-COPYING.txt",
+      "source": "https://nsis.sourceforge.io/License",
+      "sha256": "388357c1215ff403c5ebde3a5ecd273e68f8b79a579996775245d1ee65442aba"
+    }
+  ]
+}

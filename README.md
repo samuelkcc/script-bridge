@@ -1,194 +1,152 @@
+<div align="center">
+
+<img src="Resources/AppIcon.png" alt="FileMaker Script Bridge icon" width="96" height="96">
+
 # FileMaker Script Bridge
 
-**Turn AI-generated script text into native FileMaker script steps—without typing every step again.**
+### From an AI idea to working FileMaker steps.
 
-ChatGPT, Gemini, and other AI tools can help write or improve a FileMaker script, but their plain-text output cannot be pasted into FileMaker Pro Script Workspace as working steps. FileMaker expects a private, structured clipboard format rather than ordinary text.
+<p>Paste a draft from your favourite AI tool, or write one with on-device Qwen.<br>Review the result. Copy native steps. Keep building in FileMaker.</p>
 
-FileMaker Script Bridge solves that last-mile problem. It converts readable AI-generated script text into FileMaker's native clipboard representation so you can paste reconstructed steps directly into Script Workspace. It also converts copied FileMaker scripts back into readable text for AI-assisted review. Everything happens locally on your Mac, and you remain in control of what is copied, reviewed, and pasted.
+**Version 1.0.0 · The redesigned desktop edition**
 
-![FileMaker Script Bridge validating a readable script](Documentation/images/filemaker-script-bridge.png)
+<p><a href="https://github.com/samuelkcc/filemaker-script-bridge/releases/download/v1.0.0/FileMaker-Script-Bridge-macOS.zip"><img src="Documentation/images/v1.0.0/download-macos.svg" alt="Download for macOS — Apple Silicon" height="44"></a>&nbsp;<a href="https://github.com/samuelkcc/filemaker-script-bridge/releases/download/v1.0.0/FileMaker-Script-Bridge-Windows-x64.exe"><img src="Documentation/images/v1.0.0/download-windows.svg" alt="Download Windows x64 — testing build" height="44"></a></p>
 
-*Paste the finished AI script into the bridge, validate it, then copy the reconstructed native steps into FileMaker Pro.*
+[Release notes](https://github.com/samuelkcc/filemaker-script-bridge/releases/tag/v1.0.0) · [Quick start](#your-first-script) · [Supported syntax](Documentation/SUPPORTED_SYNTAX.md) · [Licence](LICENSE)
 
-[Download the latest macOS release](https://github.com/samuelkcc/filemaker-script-bridge/releases/latest)
+</div>
 
-## Latest release — 2026.09.29
+![FileMaker Script Bridge 1.0.0 welcome screen with two ways to start a script](Documentation/images/v1.0.0/welcome.jpg)
 
-- **Export Records:** worksheet calculations, AI option aliases, and Smart Fix repair of multiline field lists.
-- **Read from Data File:** whole-file binary and text reads, including XLSX attachment data. Non-empty Amount remains manual setup.
-- **Smart Fix questions:** fill in missing file paths, fields, targets, encodings, and column-heading choices without guessing.
-- **Verified compatibility:** 98 editable subsets, 96 passing tests, and native FileMaker paste/copy checks.
-- **Universal macOS app:** Apple Silicon and Intel, macOS 13 or later.
+<p align="center"><sub>The running macOS app, shown in full. Mac and Windows share the same interface; native window controls differ.</sub></p>
 
-See the [release notes](https://github.com/samuelkcc/filemaker-script-bridge/releases/tag/v2026.09.29) for details.
+## A useful script should not mean retyping every step
 
-## The problem it solves
+AI tools produce readable text. FileMaker Pro Script Workspace expects a private native clipboard format. FileMaker Script Bridge connects the two: it validates readable script text and turns supported syntax into native steps you can paste into FileMaker. It also turns copied FileMaker steps back into readable text for review and editing.
 
-AI can produce useful FileMaker-style script text, but copying that answer straight into Script Workspace does not create executable FileMaker steps. The usual workaround is to find each step, configure its options, and retype every calculation manually—a slow and error-prone job for a long script.
+You choose the script, destination and insertion point. The app prepares clipboard data; FileMaker remains where you review and run your work.
 
-The bridge connects the two formats:
+## A major update for 1.0.0
 
-- readable, line-oriented script text that people and AI assistants can work with;
-- FileMaker's native `XMSS` clipboard data for selected script steps; and
-- FileMaker's native `XMSC` clipboard data for complete scripts.
+Version 1.0.0 replaces the previous SwiftUI interface with an AniCanto-inspired desktop workspace shared by macOS and Windows. The existing Swift conversion engine sits behind a new Tauri/Rust host.
 
-The app is deliberately a clipboard bridge, not an AI service or a FileMaker automation tool. It never clicks inside FileMaker and never sends your scripts to ChatGPT, Gemini, or any other service.
+- **A fresh workspace.** Clear navigation, a script editor, live validation, Smart Fix review and a prominent Copy to FileMaker action.
+- **Two ways to write.** Bring a draft from another AI tool, or generate one in the built-in Qwen playground.
+- **Optional local models.** Select Qwen 9B or 35B to download automatically. Resume an interrupted download or remove a model to recover disk space.
+- **Reference-grounded generation.** The playground uses the bridge's syntax guide and supported-step catalogue, then validates the draft before you review it.
+- **Light, dark and system appearance.** One design across platforms, with an updated purple bridge icon.
+- **Licences included.** A redesigned About screen and searchable offline application, component, model and inference-engine notices.
 
-## At a glance
+## Download
 
-```text
-ChatGPT / Gemini / editor
-           │ copy readable script text
-           ▼
- FileMaker Script Bridge
-           │ validate + reconstruct native clipboard data
-           ▼
- FileMaker Pro Script Workspace
-```
+| Platform | Package | Status and requirements |
+| --- | --- | --- |
+| **macOS** | [Download the app ZIP](https://github.com/samuelkcc/filemaker-script-bridge/releases/download/v1.0.0/FileMaker-Script-Bridge-macOS.zip) | Apple Silicon · macOS 13 or later · built and checked on macOS |
+| **Windows** | [Download the x64 installer](https://github.com/samuelkcc/filemaker-script-bridge/releases/download/v1.0.0/FileMaker-Script-Bridge-Windows-x64.exe) | Windows 10/11 x64 · available for native Windows testing |
 
-## Key features
+**Mac:** Extract the ZIP and move **FileMaker Script Bridge.app** to Applications. The app is ad-hoc signed and is not Apple-notarized. Your macOS security settings may require an additional first-open confirmation.
 
-- Native SwiftUI application for macOS 13 or later.
-- Universal Apple Silicon and Intel build (`arm64` + `x86_64`).
-- Fully local conversion with no network requests, analytics, or accounts.
-- Live syntax colouring, validation, issue highlighting, and XML preview.
-- Searchable reference for all 216 official FileMaker Pro 2026 script steps.
-- 98 tested editable subsets that can be reconstructed as native FileMaker steps.
-- Completion-template comments for the other 118 official steps, keeping the AI's intent visible for manual setup in FileMaker.
-- Optional strict native-only mode when the clipboard must contain only tested native steps.
-- Lossless same-session preservation for copied FileMaker steps and options that are not yet editable.
+**Windows:** Run the installer, then open the app from Start. The installer includes the conversion worker and required DLLs; Swift does not need to be installed. Setup obtains Microsoft WebView2 from Microsoft if it is missing, which requires internet access. The installer is unsigned. Installation, display, FileMaker copy/paste and AI inference still need native Windows acceptance testing. [Windows test guide →](Documentation/WINDOWS_BUILD.md#windows-acceptance)
 
-![FileMaker Pro Script-Step Reference showing editable subsets and completion templates](Documentation/images/step-reference.png)
+The 1.0.0 Mac package is **Apple Silicon**. Intel Mac users can access the [previous universal SwiftUI release](https://github.com/samuelkcc/filemaker-script-bridge/releases/tag/v2026.09.29), which has the older interface and no built-in Qwen playground.
 
-*The in-app reference separates tested native support from completion templates. Coverage is expanded by capturing real FileMaker copy-and-paste results, reconstructing the clipboard XML, and verifying that FileMaker accepts it again.*
+FileMaker Pro 26 is the documented clipboard target. Model weights are optional downloads and are not included in either package. Matching source archives, original component sources and checksums are attached to the [1.0.0 release](https://github.com/samuelkcc/filemaker-script-bridge/releases/tag/v1.0.0).
 
-## How it works
+## Your first script
 
-### AI text to FileMaker
+### Bring a draft from another AI tool
 
-1. Ask ChatGPT, Gemini, or another assistant to produce the script as readable FileMaker-style steps, then copy the finished text.
-2. In FileMaker Script Bridge, choose **AI → FileMaker** and click **Paste AI Text & Create FileMaker Clipboard**.
-3. Review the validation result. Supported lines become native FileMaker steps. In the default template mode, unsupported official steps become clearly marked TODO comments for manual completion.
-4. In FileMaker Script Workspace, choose the insertion point and press `⌘V`.
+1. Copy readable FileMaker-style script text from your AI tool or editor.
+2. Open **Script workspace → AI → FileMaker** and choose **Paste AI draft & copy**. If you type or edit directly, choose **Copy to FileMaker** after validation.
+3. Review the validation details and use **Smart Fix** for flagged syntax or missing options.
+4. In FileMaker Pro Script Workspace, select an insertion point and paste with **⌘V** on Mac or **Ctrl+V** on Windows. Review and test the result in your solution.
 
-Search Script Workspace for `FileMaker Script Bridge TODO` to find every generated completion template. Replace each comment with the real FileMaker step and configure the options described by the preserved AI text before using the script in production. Choose **Strict native-only** in the bridge if you prefer unsupported AI-authored lines to block clipboard creation instead.
+![Script workspace showing a validated order-approval example and the Copy to FileMaker action](Documentation/images/v1.0.0/script-workspace.jpg)
 
-### FileMaker to readable text
+*Readable text on the left. Validation and review on the right. Native clipboard actions stay within reach at the bottom.*
 
-1. In FileMaker Script Workspace, select script steps and press `⌘C`. To copy a complete script, select it in the Scripts pane and copy it.
-2. In FileMaker Script Bridge, choose **FileMaker → AI** and click **Read FileMaker Clipboard**.
-3. The app reads the structured FileMaker payload and replaces the clipboard with readable text.
-4. Paste the readable text into your editor or AI assistant.
+### Start with on-device Qwen
 
-The required `⌘C` and `⌘V` actions are intentional: the bridge cannot choose a script, insertion point, or destination on your behalf.
+1. Open **AI playground** and use **Select model (auto-download)** to choose Qwen 9B or 35B.
+2. When the model is ready, describe the script you need. Add your actual table, field and layout names in the optional database context.
+3. Generate a draft. The bridge supplies relevant reference material, checks the supported syntax and can request one repair using its diagnostics.
+4. Choose **Review in workspace**, check the result, then copy native steps into FileMaker.
 
-### Wrapped record and find steps
+![AI playground with a question editor, optional database context, model selection and built-in syntax knowledge](Documentation/images/v1.0.0/ai-playground.jpg)
 
-Option blocks can start on the line after a step, including `Delete Record/Request`,
-`Revert Record/Request`, and `Commit Records/Requests` followed by `[ No dialog ]`.
-Additional wrapped option blocks are joined to the same step. Diagnostic line numbers
-continue to identify the start of the step.
+*The playground uses the same review and clipboard workflow as a draft pasted from another AI tool.*
 
-`Constrain Found Set [ ]` uses current find requests with Find without indexes off;
-`Extend Found Set [ ]` also uses current requests. Stored `Restore` requests still need
-native FileMaker capture. Calculated navigation accepts `[ $recordNumber ]` with an
-optional following `[ No dialog ]`, as well as `[ By calculation: $recordNumber ]`.
-Empty Delete/Revert option blocks retain a confirmation dialog; explicit `No dialog`
-or `With dialog: On/Off` settings are preserved.
+| Optional model | Download size | Suggested system memory |
+| --- | --- | --- |
+| **Qwen3.5 9B** · Q4_K_M | 5.68 GB | 16 GB or more |
+| **Qwen3.5 35B-A3B** · Q4_K_M | 22.02 GB | 48 GB or more |
 
-The bridge now supports Create/Open/Write/Close Data File and Insert from URL using
-native FileMaker captures, including variable and field targets, UTF-8/UTF-16 writes,
-line-feed options, cURL calculations, SSL verification, and URL encoding settings.
-See [supported syntax](Documentation/SUPPORTED_SYNTAX.md#data-files-and-insert-from-url).
+Memory figures are estimates with headroom. Actual use depends on context length and other applications. macOS inference uses Metal; the Windows package currently uses the portable CPU runtime, so generation speed differs.
 
-## Compatibility and data safety
+Model downloads are pinned to exact Unsloth GGUF conversions, verified by size and SHA-256, and stored outside the application. Select an interrupted model download to resume it. **Remove model** unloads and deletes an installed model; **Remove download** discards a partial download. Selecting it again downloads a fresh copy. The [model catalogue](Desktop/ai/catalogue.json) records versions, sources, sizes and licence details.
 
-The in-app reference covers all 216 script steps in the official 2026 Claris FileMaker Pro Help catalogue. Coverage has two distinct AI-to-FileMaker levels:
+The built-in reference guides syntax; it does not inspect your database or establish that a script's logic is correct. Review generated fields, paths, calculations and business rules before running them.
 
-- **Editable subset:** the documented text form can be parsed and rebuilt as tested native FileMaker clipboard XML. Some steps support only specific, verified option profiles.
-- **Completion template:** an AI-authored step that is not yet reconstructable can paste as a visible two-line TODO comment. The comment preserves the requested action for the user to complete manually in FileMaker; it does not perform that action.
+### Review an existing FileMaker script
 
-For **FileMaker → AI → FileMaker** round trips, the original XML of a copied step that is not yet editable is retained in memory and represented by an `SCKC-P…` preservation marker. If that marker remains unchanged, the original native step can return to FileMaker unchanged during the same app session.
+Copy selected native steps in FileMaker, or copy a whole script from the Scripts pane. In the bridge, choose **FileMaker → Text**, then **Read FileMaker clipboard**. The resulting readable text is ready for your editor or AI tool. Native Windows clipboard transport differs from macOS and is part of the Windows acceptance checklist.
 
-A preservation marker is not portable by itself. Closing the app discards its associated in-memory XML. If a marker is opened in a new session, export is blocked and the original script must be copied from FileMaker again.
+## Clear support boundaries
 
-Unrecognized or partially supported AI-authored lines have no original XML to preserve. The bridge therefore converts them into visible TODO comments in template mode, or blocks clipboard creation in strict native-only mode, instead of silently dropping or simplifying the requested action. See [Supported Syntax](Documentation/SUPPORTED_SYNTAX.md) and the [Claris coverage index](Documentation/CLARIS_SCRIPT_STEP_COVERAGE.md) for the current boundary.
+The app's reference covers **216 official script steps**, with **98 editable subsets** and completion templates for the remaining **118**. Editable support can be limited to specific verified option profiles; a recognised step name does not mean every option is reconstructable.
 
-Private FileMaker clipboard structures can change between releases. This version targets English FileMaker Pro 26 script-step names and does not claim compatibility with future private clipboard formats.
+| Result | What it means |
+| --- | --- |
+| **Native editable subset** | The documented text form can be rebuilt into native FileMaker clipboard XML. |
+| **Completion template** | An unsupported AI-authored step becomes a visible TODO comment for manual setup. It does not execute the requested action. Strict native-only mode blocks these drafts instead. |
+| **Preserved native step** | A step copied from FileMaker can retain its original XML behind an unchanged preservation marker during the same app session. |
 
-## Install
+Preservation markers depend on in-memory originals. Closing the app discards those originals; copy the source steps from FileMaker again before continuing in a new session. Unrecognised or ambiguous syntax is flagged instead of silently dropped.
 
-1. Download `FileMaker Script Bridge.app.zip` from the [latest release](https://github.com/samuelkcc/filemaker-script-bridge/releases/latest).
-2. Extract the ZIP and move **FileMaker Script Bridge.app** to Applications.
-3. Open the app.
+See the [supported syntax](Documentation/SUPPORTED_SYNTAX.md), [coverage index](Documentation/CLARIS_SCRIPT_STEP_COVERAGE.md) and [AI review workflow](Documentation/AI_REVIEW_WORKFLOW.md) for details. Private FileMaker clipboard structures can change between versions.
 
-The public build is ad-hoc signed and is not notarized with an Apple Developer ID. macOS may therefore require you to Control-click the app, choose **Open**, and confirm the first launch. Review the source and build locally if your organisation does not permit unnotarized applications.
+## Your scripts stay on your computer
 
-## Privacy and security
+Conversion, validation and optional Qwen inference run on this computer. There are no accounts or analytics. The app does not upload prompts or scripts to a hosted AI service. Optional model downloads require a network connection; opening external links or installing a missing WebView2 runtime also uses the network.
 
-All parsing, validation, and clipboard conversion happens on the Mac. The app does not send scripts anywhere. Content leaves the computer only when the user pastes it into another application or service.
+Questions, generated drafts and preserved native steps stay in memory. Downloaded models and verification receipts persist in the app's per-user data folder. You choose whether to include the current workspace script as generation context. Content you copy into an external AI tool is handled by that tool's own terms.
 
-Before sharing a script with any external service, remove or review credentials, personal data, confidential prices, internal hostnames, file paths, account names, and schema details. The [AI review workflow](Documentation/AI_REVIEW_WORKFLOW.md) contains a practical checklist.
+## Built with care, open to inspection
 
-## Smart Fix review
+The shared interface uses HTML, CSS and JavaScript inside a **Tauri 2 / Rust** desktop host. The tested **Swift** engine runs as a persistent local worker. **llama.cpp** supplies optional native inference. The architecture keeps platform clipboard code separate while sharing the workflow and UI.
 
-Use **Smart Fix** in the validation pane to review all flagged lines and missing dialog defaults together. Choose **Select Suggested Fixes** for proposed repairs, edit individual replacements, keep unresolved items, or explicitly omit a step. Omissions leave a comment recording the original text. Replacements must compile as native steps before applying. After applying, click **Update FileMaker Clipboard** to export the revised script.
+Automated verification includes 107 Swift tests, 5 JavaScript/worker tests and 10 Rust host, knowledge and codec tests. Separate integration checks cover download resume and checksum rejection, plus real Qwen 9B generation through the Swift validator. The 35B model has not been inference-tested. Native Windows acceptance is pending.
 
-Dialog suggestions add `Default Button: "OK", Commit: No`; review this behavior before approving. Missing message calculations and unsupported options require your input. Smart Fix also recognizes the bridge's exported two-comment TODO blocks. It runs locally and does not call an AI service.
+[Architecture and platform status](Documentation/DESKTOP_ARCHITECTURE.md) · [Windows build instructions](Documentation/WINDOWS_BUILD.md) · [Release history](RELEASE_NOTES.md)
 
-Three-button AI drafts may use `Button 1:`, `Button 2:`, and `Button 3:`. The bridge accepts `Button 1:` as `Default Button:` without adding an extra OK button. Smart Fix can recover older TODO comments containing this syntax.
+<details>
+<summary><strong>Build and test locally</strong></summary>
 
-Custom dialog buttons accept arbitrary labels, including calculated and translated
-labels. For an explicitly listed button, an omitted `Commit` setting defaults to
-`No`; an explicit `Commit: Yes` or `Commit: No` is preserved. A single button needs
-no additional options. Button wording is never used to infer whether to save input
-data. Invalid explicit commit values still require correction.
-
-## Build and test
-
-Xcode Command Line Tools with Swift 6 are required.
+The shared desktop build requires Rust, Python 3.12 or later and Swift 6. macOS also needs Xcode Command Line Tools. Fetch the locked dependencies and pinned inference runtime before an offline build.
 
 ```sh
-env \
-  CLANG_MODULE_CACHE_PATH="$PWD/.build/SCKCModuleCache" \
-  SWIFTPM_MODULECACHE_OVERRIDE="$PWD/.build/SCKCModuleCache" \
-  swift test --disable-sandbox --scratch-path "$PWD/.build/sckc-tests"
-
-./Scripts/package-app.sh release
+cargo fetch --locked --manifest-path Desktop/src-tauri/Cargo.toml
+python3 Scripts/prepare-ai-runtime.py --fetch
+python3 Scripts/desktop.py build
+node --test Desktop/tests/*.test.mjs
+cargo test --locked --offline --manifest-path Desktop/src-tauri/Cargo.toml
+python3 Scripts/desktop.py package
 ```
 
-If the selected SDK lacks SwiftUI compiler plugins, the packaging script accepts `BRIDGE_MACOS_SDK` and `BRIDGE_BUILD_SYSTEM` overrides. For example, on a machine with the macOS 26.5 SDK installed:
+Run the Swift suite with an Xcode installation that provides XCTest:
 
 ```sh
-BRIDGE_MACOS_SDK=/Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk \
-BRIDGE_BUILD_SYSTEM=native ./Scripts/package-app.sh release
+swift test --disable-sandbox --scratch-path .build/desktop-tests
 ```
 
-Tests require a developer installation that includes XCTest; an Xcode installation must have its license accepted before use.
+Current launchable deliverables are kept in `dist/`. Archives, component sources, staging and release records live in `.build/releases/1.0.0/`. The older `Scripts/package-app.sh` builds the previous SwiftUI edition. Use the [Windows guide](Documentation/WINDOWS_BUILD.md) for the matching cross-build toolchain and installer recipe.
 
-The packaging script builds both architectures, combines them with `lipo`, bundles the application icon, applies an ad-hoc signature, verifies a metadata-free staging copy, and creates:
+</details>
 
-- `dist/FileMaker Script Bridge.app`
-- `dist/FileMaker Script Bridge.app.zip`
+## Licence and acknowledgements
 
-For redistribution in a managed environment, sign and notarize the app with your own Apple Developer ID.
+Created by **SCKC** as an independent, open-source hobby project. FileMaker Script Bridge is released under [GPL-3.0-or-later](LICENSE), without warranty. Qwen models retain Apache-2.0; llama.cpp retains MIT. Other components retain their own terms. Full original notices are available offline under **About & licences** and in the corresponding source archives.
 
-## Project status
+This project is not made by, affiliated with, endorsed by or supported by Claris International Inc. FileMaker and FileMaker Pro are trademarks of Claris International Inc.
 
-FileMaker Script Bridge is an independent community project under active development. New editable option families are added only after their native FileMaker XML has been captured, round-trip tested, and accepted by FileMaker Script Workspace. Contributions should preserve that evidence-based safety standard.
-
-## Licence
-
-Copyright © 2026 SCKC.
-
-This project is free software licensed under the [GNU General Public License, version 3 or later](LICENSE). It is provided without warranty; see the licence for the complete terms.
-
-## Trademark notice
-
-This is independent software. It is not made by, affiliated with, endorsed by, or supported by Claris International Inc. FileMaker and FileMaker Pro are trademarks of Claris International Inc.
-
-## Support the project ☕
-
-If FileMaker Script Bridge saves you manual typing time, you can support continued development and the careful capture, reconstruction, and FileMaker verification of more native script-step options:
-
-[![Buy Samuel a coffee](https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png)](https://buymeacoffee.com/samuelchen)
+[Report an issue](https://github.com/samuelkcc/filemaker-script-bridge/issues) · [Support Samuel's hobby projects](https://www.buymeacoffee.com/samuelchen)

@@ -1,0 +1,52 @@
+name: Desktop checks
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install official Windows Swift toolchain
+        if: runner.os == 'Windows'
+        uses: compnerd/gha-setup-swift@main
+        with:
+          source: swift.org
+          swift-version: swift-6.4-release
+          swift-build: 6.4.0-RELEASE
+      - name: Show toolchain versions
+        run: |
+          swift --version
+          rustc --version
+          node --version
+      - name: Fetch exact Cargo sources
+        run: cargo fetch --locked --manifest-path Desktop/src-tauri/Cargo.toml
+      - name: Fetch pinned inference runtime and matching source
+        run: python Scripts/prepare-ai-runtime.py --fetch
+      - name: Build native shared desktop and worker
+        run: python Scripts/desktop.py build --debug
+      - name: Swift regression tests
+        run: swift test --disable-sandbox --scratch-path .build/desktop-tests
+      - name: JavaScript and worker integration tests (macOS)
+        if: runner.os == 'macOS'
+        run: node --test Desktop/tests/*.test.mjs
+      - name: JavaScript and worker integration tests (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $workerDir = swift build --disable-sandbox --scratch-path .build/desktop-worker --show-bin-path
+          $env:BRIDGE_TEST_WORKER = Join-Path ($workerDir | Select-Object -Last 1) 'FileMakerBridgeWorker.exe'
+          node --test Desktop/tests/model.test.mjs Desktop/tests/worker.test.mjs
+      - name: Rust host, knowledge and clipboard tests
+        run: cargo test --locked --offline --manifest-path Desktop/src-tauri/Cargo.toml

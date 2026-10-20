@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>FileMaker Script Bridge</title>
+<link rel="stylesheet" href="styles.css">
+<script type="module" src="app.js"></script>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" aria-label="Main navigation">
+    <a class="brand" href="#home" aria-label="FileMaker Script Bridge home"><span class="brand-mark" data-icon="bridge"></span><span>Script Bridge<small>FOR FILEMAKER</small></span></a>
+    <div class="rail-label">YOUR WORKSPACE</div>
+    <nav id="navigation">
+      <button data-route="home" class="nav-item active"><span data-icon="home"></span>Welcome</button>
+      <button data-route="workspace" class="nav-item"><span data-icon="code"></span>Script workspace</button>
+      <button data-route="playground" class="nav-item"><span data-icon="sparkle"></span>AI playground</button>
+      <button data-route="reference" class="nav-item"><span data-icon="book"></span>Step reference<span class="nav-count">216</span></button>
+      <button data-route="guide" class="nav-item"><span data-icon="compass"></span>Quick guide</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <button data-route="about" class="nav-item"><span data-icon="info"></span>About & licences</button>
+      <button id="appearance" class="nav-item"><span data-icon="sun"></span>Appearance<span id="theme-label" class="nav-count">Light</span></button>
+      <div class="rail-footer">A hobby project by SCKC<span id="app-version">DESKTOP</span></div>
+    </div>
+  </aside>
+  <div class="main-shell">
+    <header class="appbar"><div class="breadcrumb">FileMaker Script Bridge <span>/</span> <strong id="page-name">Welcome</strong></div><div class="appbar-right"><span class="local-pill"><span class="status-dot"></span>Local workspace</span><button class="icon-button" id="help" aria-label="Open quick guide" title="Quick guide"><span data-icon="help"></span></button></div></header>
+    <main id="page" tabindex="-1"></main>
+    <footer class="statusbar"><span id="engine-state"><span class="status-dot waiting"></span>Connecting to local engine…</span><span>Independent software · GPL-3.0-or-later</span></footer>
+  </div>
+</div>
+<div id="announcer" role="status" aria-live="polite" class="sr-only"></div>
+<dialog id="drawer" aria-labelledby="drawer-title"><div class="drawer-header"><div><span class="eyebrow" id="drawer-eyebrow">SCRIPT BRIDGE</span><h2 id="drawer-title"></h2></div><button class="icon-button" id="close-drawer" aria-label="Close panel"><span data-icon="close"></span></button></div><div id="drawer-body"></div><div id="drawer-footer"></div></dialog>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(FoundationXML)
+import FoundationXML
+#endif
 
 /// Inspect actual calculation nodes, not paths, quoted data, or script Comment steps.
 enum CalculationComments {
