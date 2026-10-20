@@ -14,6 +14,8 @@
 
 [Release notes](https://github.com/samuelkcc/filemaker-script-bridge/releases/tag/v1.0.0) · [Quick start](#your-first-script) · [Supported syntax](Documentation/SUPPORTED_SYNTAX.md) · [Licence](LICENSE)
 
+<p><a href="https://buymeacoffee.com/samuelchen"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy me a coffee — support Samuel’s hobby projects" width="217"></a></p>
+
 </div>
 
 ![FileMaker Script Bridge 1.0.0 welcome screen with two ways to start a script](Documentation/images/v1.0.0/welcome.jpg)
@@ -149,4 +151,10 @@ Created by **SCKC** as an independent, open-source hobby project. FileMaker Scri
 
 This project is not made by, affiliated with, endorsed by or supported by Claris International Inc. FileMaker and FileMaker Pro are trademarks of Claris International Inc.
 
-[Report an issue](https://github.com/samuelkcc/filemaker-script-bridge/issues) · [Support Samuel's hobby projects](https://www.buymeacoffee.com/samuelchen)
+## Support the project
+
+FileMaker Script Bridge is an independent hobby project by SCKC. If it saves you time, you can help support its ongoing development by buying Samuel a coffee.
+
+<a href="https://buymeacoffee.com/samuelchen"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy me a coffee — support Samuel’s hobby projects" width="217"></a>
+
+[Report an issue](https://github.com/samuelkcc/filemaker-script-bridge/issues)
