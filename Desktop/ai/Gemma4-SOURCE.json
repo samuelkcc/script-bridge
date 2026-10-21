@@ -1,0 +1,11 @@
+{
+  "publisher": "Google DeepMind",
+  "model": "Gemma 4 E4B",
+  "license": "Apache-2.0",
+  "officialLicenseURL": "https://ai.google.dev/gemma/apache_2",
+  "licenseTextURL": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+  "licenseTextSHA256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+  "modelCardURL": "https://ai.google.dev/gemma/docs/core/model_card_4",
+  "conversionPublisher": "ggml-org",
+  "conversionRepository": "https://huggingface.co/ggml-org/gemma-4-E4B-it-GGUF"
+}

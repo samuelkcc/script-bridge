@@ -44,3 +44,22 @@ FileMaker-to-text conversion is local and offline. The script leaves the Mac onl
 - Internal hostnames, file paths, account names, and schema details.
 
 The bridge does not automatically open, sign in to, or submit content to an AI provider.
+
+
+## Amend a printed script with local Qwen
+
+1. In FileMaker Script Workspace, print the existing script to a PDF with selectable text.
+2. Open **AI playground → Attach PDF** and check **Preview extracted text**.
+3. Describe the problem, the requested change and anything that must remain unchanged.
+4. Select/download Gemma 4 E4B, Qwen 9B or 35B and choose **Generate script**. The app asks for a full
+   replacement rather than a patch. Larger scripts need more time and context; the app
+   refuses a request that cannot leave enough output room without shortening the source.
+5. Choose **Review in workspace**, inspect the whole script and every validation notice,
+   then **Copy to FileMaker** and paste into Script Workspace. Test it in a copy of your solution.
+
+Use **Remove PDF** to discard the attached text, or **Replace PDF** for a newer printout.
+Only the text you attach (plus the workspace script if checked) is included. Files are
+not uploaded, indexed, edited, or retained after app exit. Scanned PDFs need OCR first.
+Printouts lack hidden native options: use a native clipboard import in the same app
+session if preserving locked steps is required, and complete setup-dependent steps manually.
+A syntax pass cannot prove that an AI replacement preserves every business rule.

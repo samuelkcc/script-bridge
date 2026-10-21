@@ -3,25 +3,25 @@ Unicode true
 !include "LogicLib.nsh"
 !include "x64.nsh"
 !include "WinVer.nsh"
-Name "FileMaker Script Bridge"
+Name "Script Bridge"
 OutFile "${OUTPUT}"
 InstallDir "$LOCALAPPDATA\Programs\FileMaker Script Bridge"
 InstallDirRegKey HKCU "Software\SCKC\FileMaker Script Bridge" "InstallDir"
 RequestExecutionLevel user
 SetCompressor zlib
-BrandingText "FileMaker Script Bridge ${VERSION} · SCKC"
-VIProductVersion "1.0.0.3"
-VIAddVersionKey "ProductName" "FileMaker Script Bridge"
+BrandingText "Script Bridge ${VERSION} · SCKC"
+VIProductVersion "${VERSION}.0"
+VIAddVersionKey "ProductName" "Script Bridge"
 VIAddVersionKey "ProductVersion" "${VERSION}"
 VIAddVersionKey "FileVersion" "${VERSION}"
-VIAddVersionKey "FileDescription" "FileMaker Script Bridge Windows x64 setup"
+VIAddVersionKey "FileDescription" "Script Bridge Windows x64 setup"
 VIAddVersionKey "LegalCopyright" "Copyright © 2026 SCKC. GPL-3.0-or-later."
 !define MUI_ICON "${ROOT}/Desktop/src-tauri/icons/icon.ico"
 !define MUI_UNICON "${ROOT}/Desktop/src-tauri/icons/icon.ico"
 !define MUI_ABORTWARNING
-!define MUI_WELCOMEPAGE_TEXT "Install FileMaker Script Bridge ${VERSION} for this Windows account.$\r$\n$\r$\nThe app includes its conversion and AI engines. Qwen models are optional downloads.$\r$\n$\r$\nIf Microsoft WebView2 is missing, setup installs it from Microsoft and needs an internet connection."
+!define MUI_WELCOMEPAGE_TEXT "Install Script Bridge ${VERSION} for this Windows account.$\r$\n$\r$\nThe app includes its conversion and AI engines. Gemma and Qwen models are optional downloads.$\r$\n$\r$\nIf Microsoft WebView2 is missing, setup installs it from Microsoft and needs an internet connection."
 !define MUI_FINISHPAGE_RUN "$INSTDIR\FileMakerScriptBridge.exe"
-!define MUI_FINISHPAGE_RUN_TEXT "Open FileMaker Script Bridge"
+!define MUI_FINISHPAGE_RUN_TEXT "Open Script Bridge"
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_LICENSE "${ROOT}/LICENSE"
 !insertmacro MUI_PAGE_DIRECTORY
@@ -42,11 +42,16 @@ Function .onInit
   ${EndIf}
 FunctionEnd
 
-Section "FileMaker Script Bridge" Main
+Section "Script Bridge" Main
 retry_close:
+  FindWindow $0 "" "Script Bridge"
+  ${If} $0 != 0
+    MessageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION "Close Script Bridge before updating it." IDRETRY retry_close
+    Abort
+  ${EndIf}
   FindWindow $0 "" "FileMaker Script Bridge"
   ${If} $0 != 0
-    MessageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION "Close FileMaker Script Bridge before updating it." IDRETRY retry_close
+    MessageBox MB_RETRYCANCEL|MB_ICONEXCLAMATION "Close the previous FileMaker Script Bridge app before updating it." IDRETRY retry_close
     Abort
   ${EndIf}
   ; Microsoft documents HKLM's 32-bit view and HKCU's per-user key.
@@ -73,9 +78,10 @@ retry_close:
   SetOutPath "$INSTDIR"
   File /r "${STAGE}/*"
   WriteUninstaller "$INSTDIR\Uninstall.exe"
-  CreateShortcut "$SMPROGRAMS\FileMaker Script Bridge.lnk" "$INSTDIR\FileMakerScriptBridge.exe" "" "$INSTDIR\FileMakerScriptBridge.exe" 0
+  Delete "$SMPROGRAMS\FileMaker Script Bridge.lnk"
+  CreateShortcut "$SMPROGRAMS\Script Bridge.lnk" "$INSTDIR\FileMakerScriptBridge.exe" "" "$INSTDIR\FileMakerScriptBridge.exe" 0
   WriteRegStr HKCU "Software\SCKC\FileMaker Script Bridge" "InstallDir" "$INSTDIR"
-  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\FileMakerScriptBridge" "DisplayName" "FileMaker Script Bridge"
+  WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\FileMakerScriptBridge" "DisplayName" "Script Bridge"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\FileMakerScriptBridge" "DisplayVersion" "${VERSION}"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\FileMakerScriptBridge" "Publisher" "SCKC"
   WriteRegStr HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\FileMakerScriptBridge" "DisplayIcon" "$INSTDIR\FileMakerScriptBridge.exe"
@@ -87,7 +93,7 @@ SectionEnd
 Section "Uninstall"
   SetRegView 64
   !include "${UNINSTALL_FILES}"
-  Delete "$SMPROGRAMS\FileMaker Script Bridge.lnk"
+  Delete "$SMPROGRAMS\Script Bridge.lnk"
   Delete "$INSTDIR\Uninstall.exe"
   RMDir "$INSTDIR"
   DeleteRegKey HKCU "Software\SCKC\FileMaker Script Bridge"

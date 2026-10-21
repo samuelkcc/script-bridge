@@ -1,3 +1,4 @@
+import {highlightScript} from './syntax.js';
 import {playground,mountPlayground,stopPlayground} from './playground.js';
 import {APP_VERSION} from './version.js';
 import {icon,hydrateIcons} from './icons.js';
@@ -29,11 +30,13 @@ function setSource(source,{result=null,importedXML=null}={}){
  if($('script-editor'))$('script-editor').value=source;
  updateLines();updateWorkspace();
 }
-function updateLines(){const editor=$('script-editor');if(!editor)return;const count=state.source.split('\n').length;$('line-count').textContent=`${count} ${count===1?'line':'lines'}`;$('line-numbers').textContent=Array.from({length:count},(_,i)=>i+1).join('\n');$('line-numbers').scrollTop=editor.scrollTop;}
+function updateLines(){const editor=$('script-editor');if(!editor)return;const count=state.source.split('\n').length;$('line-count').textContent=`${count} ${count===1?'line':'lines'}`;$('line-numbers').textContent=Array.from({length:count},(_,i)=>i+1).join('\n');$('script-highlight').innerHTML=highlightScript(state.source)+' ';syncEditorPaint();}
+function syncEditorPaint(){const editor=$('script-editor'),paint=$('script-highlight');if(!editor||!paint)return;paint.style.width=editor.clientWidth+'px';paint.style.height=editor.clientHeight+'px';paint.scrollTop=editor.scrollTop;paint.scrollLeft=editor.scrollLeft;$('line-numbers').scrollTop=editor.scrollTop;}
 function bindEditor(){
  const editor=$('script-editor');
  editor.addEventListener('input',()=>{setSource(editor.value);scheduleCompile();});
- editor.addEventListener('scroll',()=>{$('line-numbers').scrollTop=editor.scrollTop;});
+ editor.addEventListener('scroll',syncEditorPaint);
+ const observer=new ResizeObserver(()=>{if(!editor.isConnected){observer.disconnect();return;}syncEditorPaint();});observer.observe(editor);
  editor.addEventListener('keydown',event=>{if(event.key==='Tab'){event.preventDefault();const a=editor.selectionStart,b=editor.selectionEnd;editor.setRangeText('    ',a,b,'end');editor.dispatchEvent(new Event('input'));}});
  $('templates').addEventListener('change',event=>{state.templates=event.target.checked;state.result=null;state.revision++;scheduleCompile();});updateLines();
 }
@@ -120,7 +123,7 @@ async function licences(){
 function licenceTab(tab){
  document.querySelectorAll('[data-notice-tab]').forEach(b=>b.classList.toggle('active',b.dataset.noticeTab===tab));
  if(tab==='app'){$('licence-content').innerHTML=`<p class="muted">Copyright © 2026 SCKC · SPDX: GPL-3.0-or-later</p><br><pre>${e(state.notices.gpl)}</pre>`;return;}
- const entries=state.notices.entries.filter(row=>tab==='ai'?Boolean(row.kind)&&row.kind!=='platform-runtime':!row.kind||row.kind==='platform-runtime');
+ const entries=state.notices.entries.filter(row=>tab==='ai'?['model','runtime','runtime-component'].includes(row.kind):!row.kind||['platform-runtime','frontend-library'].includes(row.kind));
  $('licence-content').innerHTML=`<p class="muted">${tab==='ai'?'The inference engine is bundled. Qwen 9B and 35B model weights are optional downloads from pinned Unsloth conversions of Qwen’s original models. Expected checksums identify the chosen files; they do not imply endorsement or guarantee output quality. Read the full model and component terms below.':'Application dependencies, build tools and platform runtimes. Each entry retains its original licence and recorded source.'}</p><br><label class="search-field notice-search">${icon('search')}<input id="notice-search" type="search" placeholder="Search name, version or licence" aria-label="Search component licences"></label><div id="notice-list"></div>`;
  const update=()=>{$('notice-list').innerHTML=entries.filter(row=>noticeMatches(row,$('notice-search').value)).map(row=>`<details class="notice-entry"><summary><strong>${e(row.name)}</strong> <span>${e(row.version)} · ${e(row.license)}</span></summary><pre>${e(row.text)}</pre>${row.repository?`<a href="${e(row.repository)}" target="_blank" rel="noreferrer">Original component source ↗</a>`:''}</details>`).join('')||'<p class="muted">No matching components.</p>';};$('notice-search').addEventListener('input',update);update();
 }

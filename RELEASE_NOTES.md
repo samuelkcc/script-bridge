@@ -1,3 +1,11 @@
+## Script Bridge 1.1.0 (21 October 2026)
+
+The independent app is now **Script Bridge**, for use with FileMaker Pro. This release restores workspace syntax colours, adds local PDF script attachments with preview/removal and full-replacement draft instructions, and adds Google Gemma 4 E4B alongside Qwen 9B and 35B. About, model notices and matching component sources are updated.
+
+Generated scripts require comparison with the original, syntax review and database testing. The long private PDF test exposed limitations in Qwen 9B; do not treat a completed AI response as verified business logic. Windows native acceptance remains pending.
+
+The repository's former name and the release titles below are retained as history.
+
 ## FileMaker Script Bridge 1.0.0 (20 October 2026)
 
 - Mac build 2026102004: compile the app icon with Apple's icon compiler and use an explicit, build-specific icon filename to fix Finder's generic application placeholder.

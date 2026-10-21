@@ -29,7 +29,7 @@ fn model(id: &str) -> Result<Value, String> {
         .iter()
         .find(|m| m["id"] == id)
         .cloned()
-        .ok_or("Choose Qwen 9B or 35B.".into())
+        .ok_or("Choose one of the available Gemma or Qwen models.".into())
 }
 fn text<'a>(v: &'a Value, key: &str) -> &'a str {
     v[key].as_str().unwrap_or_default()
@@ -336,7 +336,7 @@ impl AiService {
                     let Some(chunk)=chunk else {break};
                     received+=chunk.len() as u64;if received>expected{return Err("Download exceeded its pinned size. The file was not installed.".into());}
                     output.write_all(&chunk).map_err(|e|e.to_string())?;hash.update(&chunk);
-                    if update.elapsed()>Duration::from_millis(200){self.update("downloading","Downloading the selected Qwen model…",json!({"model":m["id"],"received":received,"total":expected}));update=Instant::now();}
+                    if update.elapsed()>Duration::from_millis(200){self.update("downloading","Downloading the selected AI model…",json!({"model":m["id"],"received":received,"total":expected}));update=Instant::now();}
                 }
                 output.sync_all().map_err(|e|e.to_string())?;
                 Ok::<(),String>(())
@@ -369,7 +369,7 @@ impl AiService {
         if physical_memory_gb()
             .is_some_and(|gb| gb < m["estimatedModelGB"].as_f64().unwrap_or(0.) + 3.)
         {
-            return Err("This model is larger than this computer's safe memory budget. Choose Qwen 9B or use a computer with more memory.".into());
+            return Err("This model is larger than this computer's safe memory budget. Choose a lighter model or use a computer with more memory.".into());
         }
         let mut server = self.server.lock().map_err(|e| e.to_string())?;
         if let Some(s) = server.as_mut() {
@@ -405,7 +405,7 @@ impl AiService {
                 "--port",
                 &port.to_string(),
                 "--ctx-size",
-                "16384",
+                "32768",
                 "--parallel",
                 "1",
                 "--api-key",
@@ -467,7 +467,7 @@ impl AiService {
                     .is_some()
                 {
                     *server = None;
-                    return Err("The AI engine could not load this model. Free memory and try again, or choose Qwen 9B.".into());
+                    return Err("The AI engine could not load this model. Free memory and try again, or choose Gemma 4 E4B.".into());
                 }
             }
             if client
@@ -498,16 +498,17 @@ impl AiService {
         if question.len() < 3 || question.len() > 6000 {
             return Err("Enter a question between 3 and 6,000 characters.".into());
         }
-        if text(&params, "schema").len() > 6000 || text(&params, "existing").len() > 8000 {
+        if text(&params, "schema").len() > 6000 || text(&params, "existing").len() > 120000 {
             return Err(
                 "Shorten the database context or existing script before generating.".into(),
             );
         }
+        validate_attachment(&params["attachment"])?;
         self.begin()?;
         let service = self.clone();
         self.update(
             "loading",
-            "Loading the selected Qwen model…",
+            "Loading the selected AI model…",
             json!({"model":id}),
         );
         std::thread::spawn(move || {
@@ -525,8 +526,15 @@ impl AiService {
             text(params, "question"),
             text(params, "schema"),
             text(params, "existing"),
+            &params["attachment"],
         );
-        let mut script = self.completion(&address, &key, &messages, &sections, 0)?;
+        let source = format!(
+            "{}\n{}",
+            text(params, "existing"),
+            text(&params["attachment"], "text")
+        );
+        let source_tokens = self.token_count(&address, &key, &source)?;
+        let mut script = self.completion(&address, &key, &messages, &sections, 0, source_tokens)?;
         if script.is_empty() {
             return Err("The model returned no script. Try a more specific question.".into());
         }
@@ -541,8 +549,16 @@ impl AiService {
                 .as_array()
                 .map(|a| a.iter().take(8).cloned().collect::<Vec<_>>())
                 .unwrap_or_default();
-            messages.as_array_mut().unwrap().extend([json!({"role":"assistant","content":script}),json!({"role":"user","content":format!("Repair the complete script using only the supported syntax reference. Validation reported: {}. Return only the complete corrected script. Preserve the requested behaviour; mark unavoidable manual setup with a # TODO comment.",json!(issues))})]);
-            let repaired = self.completion(&address, &key, &messages, &sections, 1)?;
+            messages = crate::knowledge::messages(
+                text(params, "question"),
+                text(params, "schema"),
+                "",
+                &Value::Null,
+            )
+            .0;
+            messages.as_array_mut().unwrap().extend([json!({"role":"assistant","content":script}),json!({"role":"user","content":format!("The user's mandatory changes are: {}. Keep these implemented while repairing the ENTIRE replacement script. Do not revert to the original behaviour. Validation reported: {}. Use the supported syntax reference; rejoin print-wrapped calculations and check string quoting if a closing block was swallowed by a calculation. Return only the complete corrected script, including unchanged sections. Mark unavoidable manual setup with a # TODO comment.",text(params,"question"),json!(issues))})]);
+            let repaired =
+                self.completion(&address, &key, &messages, &sections, 1, source_tokens)?;
             if !repaired.is_empty() {
                 script = repaired;
                 validation = validate(&script)?;
@@ -556,6 +572,26 @@ impl AiService {
         );
         Ok(())
     }
+    fn token_count(&self, address: &str, key: &str, content: &str) -> Result<usize, String> {
+        self.check_cancel()?;
+        let result: Value = Client::builder()
+            .no_proxy()
+            .timeout(Duration::from_secs(60))
+            .build()
+            .map_err(|e| e.to_string())?
+            .post(format!("{address}/tokenize"))
+            .bearer_auth(key)
+            .json(&json!({"content":content,"add_special":true,"parse_special":true}))
+            .send()
+            .and_then(|r| r.error_for_status())
+            .map_err(|e| format!("Could not measure script length: {e}"))?
+            .json()
+            .map_err(|e| e.to_string())?;
+        result["tokens"]
+            .as_array()
+            .map(Vec::len)
+            .ok_or("The AI engine returned an invalid token count.".into())
+    }
     fn completion(
         &self,
         address: &str,
@@ -563,17 +599,34 @@ impl AiService {
         messages: &Value,
         sections: &[String],
         attempt: u8,
+        source_tokens: usize,
     ) -> Result<String, String> {
         let client = Client::builder()
             .no_proxy()
             .timeout(Duration::from_secs(20 * 60))
             .build()
             .map_err(|e| e.to_string())?;
-        let response=client.post(format!("{address}/v1/chat/completions")).bearer_auth(key).json(&json!({"messages":messages,"stream":true,"temperature":0.2,"max_tokens":4096,"chat_template_kwargs":{"enable_thinking":false}})).send().and_then(|r|r.error_for_status()).map_err(|e|format!("Generation failed: {e}"))?;
+        self.check_cancel()?;
+        let formatted: Value = client
+            .post(format!("{address}/apply-template"))
+            .bearer_auth(key)
+            .json(&json!({"messages":messages,"chat_template_kwargs":{"enable_thinking":false}}))
+            .send()
+            .and_then(|r| r.error_for_status())
+            .map_err(|e| format!("Could not check the model context: {e}"))?
+            .json()
+            .map_err(|e| e.to_string())?;
+        let prompt = formatted["prompt"]
+            .as_str()
+            .ok_or("The AI engine could not measure the script context.")?;
+        let input_tokens = self.token_count(address, key, prompt)?;
+        let max_tokens = output_budget(input_tokens, source_tokens)?;
+        let response=client.post(format!("{address}/v1/chat/completions")).bearer_auth(key).json(&json!({"messages":messages,"stream":true,"temperature":0.2,"max_tokens":max_tokens,"cache_prompt":false,"chat_template_kwargs":{"enable_thinking":false}})).send().and_then(|r|r.error_for_status()).map_err(|e|format!("Generation failed: {e}"))?;
         let mut generated = String::new();
         let mut last = Instant::now() - Duration::from_secs(1);
         let mut total = 0usize;
         let mut ended = false;
+        let mut stopped = false;
         for line in BufReader::new(response).lines() {
             self.check_cancel()?;
             let line = line.map_err(|e| format!("Generation was interrupted: {e}"))?;
@@ -597,19 +650,58 @@ impl AiService {
                 generated.push_str(token);
             }
             if value["choices"][0]["finish_reason"] == "length" {
-                return Err("The model reached its output limit. Ask for a smaller script or split the task.".into());
+                return Err("The model reached its output limit. The draft is incomplete and cannot be copied as a full replacement. Try a shorter source script or use another AI tool with a larger context.".into());
+            }
+            if let Some(reason) = value["choices"][0]["finish_reason"].as_str() {
+                if reason != "stop" {
+                    return Err(format!("The model did not finish a complete script ({reason}). Try generating again."));
+                }
+                stopped = true;
             }
             if last.elapsed() > Duration::from_millis(120) {
                 self.update("generating",if attempt==0{"Generating a script with the bridge's reference…"}else{"Repairing the draft against the validator…"},json!({"script":crate::knowledge::clean_script(&generated),"sections":sections}));
                 last = Instant::now();
             }
         }
-        if !ended {
+        if !ended || !stopped {
             return Err("The AI response ended unexpectedly. Generate the draft again.".into());
         }
         Ok(crate::knowledge::clean_script(&generated))
     }
 }
+
+fn validate_attachment(attachment: &Value) -> Result<(), String> {
+    if attachment.is_null() {
+        return Ok(());
+    }
+    let name = text(attachment, "name");
+    let content = text(attachment, "text");
+    let pages = attachment["pages"].as_u64().unwrap_or(0);
+    if name.is_empty()
+        || name.len() > 1024
+        || !name.to_lowercase().ends_with(".pdf")
+        || !(1..=40).contains(&pages)
+        || content.trim().is_empty()
+        || content.chars().count() > 120000
+        || content.len() > 480000
+    {
+        return Err(
+            "Attach a readable script PDF with up to 40 pages and 120,000 characters.".into(),
+        );
+    }
+    Ok(())
+}
+fn output_budget(input: usize, source: usize) -> Result<usize, String> {
+    // Reserve enough output for the entire source plus amendments, never silently
+    // truncate the attachment or ask the server to discard the start of the prompt.
+    let required = (source.saturating_mul(3) / 2 + 1024).max(4096);
+    let available = 32768usize.saturating_sub(input + 512).min(16384);
+    if required > available {
+        return Err("This script leaves too little room for a full replacement in the local model’s context. Attach a shorter script, remove duplicate workspace context, or use another AI tool with a larger context. No source text was shortened.".into());
+    }
+    Ok(available)
+}
+
 impl Drop for AiService {
     fn drop(&mut self) {
         self.cancel();
@@ -674,8 +766,112 @@ fn physical_memory_gb() -> Option<f64> {
 mod tests {
     use super::*;
     #[test]
+    fn rejects_invalid_pdf_context_and_reserves_a_complete_replacement() {
+        assert!(validate_attachment(&Value::Null).is_ok());
+        let pdf = json!({"name":"Script.pdf","pages":7,"text":"Set Variable [ $x ; Value: 1 ]"});
+        assert!(validate_attachment(&pdf).is_ok());
+        for invalid in [
+            json!({}),
+            json!({"name":"x.pdf","pages":41,"text":"script"}),
+            json!({"name":"x.txt","pages":1,"text":"script"}),
+            json!({"name":"x.pdf","pages":1,"text":" "}),
+        ] {
+            assert!(validate_attachment(&invalid).is_err());
+        }
+        assert_eq!(output_budget(12000, 8000).unwrap(), 16384);
+        assert!(output_budget(24000, 8000).is_err());
+        assert!(output_budget(4000, 12000).is_err());
+        assert!(output_budget(32768, 0).is_err());
+    }
+    #[test]
+    #[ignore = "Requires a private extracted PDF fixture and local Qwen inference"]
+    fn real_model_amends_a_complete_pdf_script() {
+        let fixture = std::env::var("BRIDGE_PDF_QA_JSON").expect(
+            "Set BRIDGE_PDF_QA_JSON to an extracted attachment JSON outside source control",
+        );
+        let attachment: Value = serde_json::from_slice(&fs::read(fixture).unwrap()).unwrap();
+        // Keep the original business requirements outside the public source too.
+        let question = std::env::var("BRIDGE_PDF_QA_QUESTION")
+            .expect("Set BRIDGE_PDF_QA_QUESTION to the private amendment request");
+        let expected_condition = std::env::var("BRIDGE_PDF_QA_EXPECTED_CONDITION")
+            .expect("Set BRIDGE_PDF_QA_EXPECTED_CONDITION to the required branch condition");
+        assert!(!expected_condition.trim().is_empty());
+        let id = std::env::var("BRIDGE_PDF_QA_MODEL").unwrap_or_else(|_| "9b".into());
+        let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join(format!("../../.build/pdf-qa/inference-{id}"));
+        let service = AiService::new(root.clone()).unwrap();
+        let m = model(&id).unwrap();
+        let source = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("../../.build/ai-qa-models")
+            .join(text(&m, "filename"));
+        let mut file = File::open(&source).unwrap();
+        let mut hash = Sha256::new();
+        let mut buffer = vec![0; LIMIT];
+        loop {
+            let n = file.read(&mut buffer).unwrap();
+            if n == 0 {
+                break;
+            }
+            hash.update(&buffer[..n]);
+        }
+        assert_eq!(format!("{:x}", hash.finalize()), text(&m, "sha256"));
+        let destination = service.path(&m);
+        if !destination.exists() {
+            fs::hard_link(source, &destination).unwrap();
+        }
+        fs::write(
+            destination.with_extension("verified.json"),
+            serde_json::to_vec(
+                &json!({"sha256":m["sha256"],"bytes":m["bytes"],"modified":modified(&destination)}),
+            )
+            .unwrap(),
+        )
+        .unwrap();
+        let engine = Arc::new(Mutex::new(crate::worker::Worker::start().unwrap()));
+        let worker = engine.clone();
+        service.generate(json!({"model":id,"question":question,"schema":"Use the actual names in the attached original script.","existing":"","attachment":attachment}),move|text|worker.lock().unwrap().call(json!({"op":"compile","source":text,"templates":false}))).unwrap();
+        let start = Instant::now();
+        while service.busy.load(Ordering::SeqCst) {
+            if start.elapsed() > Duration::from_secs(1500) {
+                service.cancel();
+                panic!("PDF generation timeout");
+            }
+            std::thread::sleep(Duration::from_millis(500));
+        }
+        let result = service.status();
+        fs::write(
+            root.join("result.json"),
+            serde_json::to_vec_pretty(&result).unwrap(),
+        )
+        .unwrap();
+        assert_eq!(
+            result["operation"]["phase"], "complete",
+            "{}",
+            result["operation"]["message"]
+        );
+        let script = result["operation"]["script"].as_str().unwrap();
+        assert!(
+            script.lines().count() > 180,
+            "Expected a whole replacement rather than a short example"
+        );
+        assert!(
+            script.lines().any(|line| {
+                let line = line.trim_start();
+                (line.starts_with("If [") || line.starts_with("Else If ["))
+                    && line.contains(&expected_condition)
+            }),
+            "A claimed change or an unused variable is not an implemented branch"
+        );
+        assert_eq!(
+            result["operation"]["validation"]["canCopy"], true,
+            "The full replacement still needs syntax correction"
+        );
+        // Keep this private result outside release/source archives for manual comparison.
+        service.remove(&id).unwrap();
+    }
+    #[test]
     fn model_downloads_are_pinned_and_cannot_accept_arbitrary_paths() {
-        for id in ["9b", "35b"] {
+        for id in ["gemma4-e4b", "9b", "35b"] {
             let m = model(id).unwrap();
             assert_eq!(text(&m, "sha256").len(), 64);
             assert!(text(&m, "url").contains(text(&m, "revision")));
@@ -800,12 +996,16 @@ mod tests {
     }
     #[test]
     #[ignore = "Requires the explicitly downloaded Qwen 9B fixture and local inference permissions"]
-    fn real_qwen_generates_a_valid_native_script() {
-        let root = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../.build/ai-qa-data");
+    fn real_model_generates_a_valid_native_script() {
+        let id = std::env::var("BRIDGE_TEST_MODEL").unwrap_or_else(|_| "9b".into());
+        let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("../../.build/ai-qa-data")
+            .join(&id);
         let service = AiService::new(root.clone()).unwrap();
-        let m = model("9b").unwrap();
+        let m = model(&id).unwrap();
         let source = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-            .join("../../.build/ai-qa-models/Qwen3.5-9B-Q4_K_M.gguf");
+            .join("../../.build/ai-qa-models")
+            .join(text(&m, "filename"));
         let mut input = File::open(&source).expect("Download the pinned Qwen test fixture first");
         let mut sha = Sha256::new();
         let mut buf = vec![0; LIMIT];
@@ -831,7 +1031,7 @@ mod tests {
         .unwrap();
         let engine = Arc::new(Mutex::new(crate::worker::Worker::start().unwrap()));
         let worker = engine.clone();
-        service.generate(json!({"model":"9b","question":"Set a local variable $greeting to the text Hello. Show a custom dialog with title Greeting and message $greeting. Include an OK default button that does not commit the record. End the script with $greeting as its text result.","schema":"","existing":""}),move|text|worker.lock().unwrap().call(json!({"op":"compile","source":text,"templates":false}))).unwrap();
+        service.generate(json!({"model":id,"question":"Set a local variable $greeting to the text Hello. Show a custom dialog with title Greeting and message $greeting. Include an OK default button that does not commit the record. End the script with $greeting as its text result.","schema":"","existing":""}),move|text|worker.lock().unwrap().call(json!({"op":"compile","source":text,"templates":false}))).unwrap();
         let start = Instant::now();
         while service.busy.load(Ordering::SeqCst) {
             if start.elapsed() > Duration::from_secs(240) {
@@ -853,7 +1053,7 @@ mod tests {
             .unwrap()
             .contains("Show Custom Dialog"));
         let worker = engine.clone();
-        service.generate(json!({"model":"9b","question":"Export the current found set to an XLSX file using $exportPath. Export Orders::OrderID, Orders::Total and Orders::Status in that order. Use field names as column headings and a worksheet named Orders. Do not show a dialog. Return only the script.","schema":"Orders::OrderID is a text ID. Orders::Total is a number. Orders::Status is text. $exportPath is already set to a valid FileMaker file path.","existing":""}),move|text|worker.lock().unwrap().call(json!({"op":"compile","source":text,"templates":false}))).unwrap();
+        service.generate(json!({"model":id,"question":"Export the current found set to an XLSX file using $exportPath. Export Orders::OrderID, Orders::Total and Orders::Status in that order. Use field names as column headings and a worksheet named Orders. Do not show a dialog. Return only the script.","schema":"Orders::OrderID is a text ID. Orders::Total is a number. Orders::Status is text. $exportPath is already set to a valid FileMaker file path.","existing":""}),move|text|worker.lock().unwrap().call(json!({"op":"compile","source":text,"templates":false}))).unwrap();
         let start = Instant::now();
         while service.busy.load(Ordering::SeqCst) {
             if start.elapsed() > Duration::from_secs(240) {
@@ -877,7 +1077,7 @@ mod tests {
                 && draft.contains("Orders::Total")
                 && draft.contains("Orders::Status")
         );
-        service.remove("9b").unwrap();
+        service.remove(&id).unwrap();
         assert_eq!(service.status()["loadedModel"], Value::Null);
         assert!(!destination.exists());
         assert!(!destination.with_extension("verified.json").exists());

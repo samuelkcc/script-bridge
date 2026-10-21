@@ -95,13 +95,13 @@ def package():
     shutil.copy2(ROOT/'Desktop/web/assets/notices.json',STAGE/'component-notices.json')
     shutil.copytree(ROOT/'Desktop/notices/platform',STAGE/'licences')
     (STAGE/'Windows testing.txt').write_text(
-        f'FileMaker Script Bridge {VERSION} — Windows x64 test build\n\n'
+        f'Script Bridge {VERSION} — Windows x64 test build\n\n'
         'Install the app, then launch it from the Start menu. The conversion worker and required DLLs are included; a Swift toolchain is not needed. Setup installs Microsoft WebView2 from Microsoft if it is missing (internet required).\n\n'
         '1. Open Script workspace and load the example. Choose Copy to FileMaker.\n'
         '2. In a test FileMaker solution, open Script Workspace, choose the insertion point and press Ctrl+V. Check the steps and calculations.\n'
         '3. Copy those steps in FileMaker. Choose FileMaker → Text in the bridge and read the clipboard.\n'
         '4. Check accented/Chinese text, multiline calculations, Smart Fix and preserved native steps in the same session.\n'
-        '5. Optionally choose a Qwen model in AI playground. Check download/cancel/resume, generation, review and model removal.\n\n'
+        '5. Optionally choose a Gemma or Qwen model in AI playground. Check download/cancel/resume, generation, review and model removal.\n\n'
         'This executable was cross-compiled on macOS. Native Windows display, installation, FileMaker clipboard acceptance and inference still need your test. It is unsigned.\n'
         'The installer does not bundle model weights. Removing the application retains downloaded models in the per-user app data folder; remove models in the playground first if desired.\n',encoding='utf-8')
     pool = {p.name.lower():p for p in (ROOT/'.build/swift-windows-runtime').glob('*.dll')}
@@ -115,12 +115,12 @@ def package():
     directories = sorted({p.parent.relative_to(STAGE).as_posix() for p in files if p.parent!=STAGE},key=lambda s:s.count('/'),reverse=True)
     lines += [f'RMDir "$INSTDIR\\{name.replace(chr(47),chr(92))}"' for name in directories]
     (OUTPUT/'windows-uninstall-files.nsh').write_text('\n'.join(lines)+'\n')
-    dest = ROOT/'dist/FileMaker Script Bridge.exe'
+    dest = ROOT/'dist/Script Bridge.exe'
     dest.parent.mkdir(exist_ok=True)
     subprocess.run(['makensis',f'-DROOT={ROOT}',f'-DSTAGE={STAGE}',f'-DVERSION={VERSION}',f'-DOUTPUT={dest}',f'-DUNINSTALL_FILES={OUTPUT / "windows-uninstall-files.nsh"}',str(ROOT/'Desktop/windows/installer.nsi')],check=True)
     receipt = {'version':VERSION,'architecture':'x86_64','type':'per-user installer','file':dest.name,'bytes':dest.stat().st_size,'sha256':hashlib.sha256(dest.read_bytes()).hexdigest(),'nativeWindowsTested':False,'swiftToolchainRequired':False,'modelsBundled':False}
     (OUTPUT/'windows-build-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
-    shutil.copy2(dest,OUTPUT/'FileMaker-Script-Bridge-Windows-x64.exe')
+    shutil.copy2(dest,OUTPUT/'Script-Bridge-Windows-x64.exe')
     print(json.dumps(receipt,indent=2))
 
 if __name__=='__main__': package()

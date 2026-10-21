@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "FileMaker Script Bridge",
-  "version": "1.0.0",
+  "productName": "Script Bridge",
+  "version": "1.1.0",
   "identifier": "com.sckc.filemaker-script-bridge",
   "build": {
     "frontendDist": "../web"
@@ -11,7 +11,7 @@
     "windows": [
       {
         "label": "main",
-        "title": "FileMaker Script Bridge",
+        "title": "Script Bridge",
         "width": 1440,
         "height": 900,
         "minWidth": 960,
@@ -20,7 +20,7 @@
       }
     ],
     "security": {
-      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' ipc: http://ipc.localhost; object-src 'none'; base-uri 'none'; frame-src 'none'"
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' ipc: http://ipc.localhost; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; frame-src 'none'"
     }
   },
   "bundle": {
@@ -45,7 +45,7 @@
       "icons/icon.ico"
     ],
     "macOS": {
-      "minimumSystemVersion": "13.0"
+      "minimumSystemVersion": "13.3"
     }
   }
 }

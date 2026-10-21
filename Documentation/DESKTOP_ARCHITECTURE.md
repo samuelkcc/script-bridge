@@ -1,4 +1,4 @@
-# Shared desktop architecture — 1.0.0
+# Shared desktop architecture — 1.1.0
 
 The desktop app adopts the approach inspected in AniCanto's current `studio/`: a shared HTML/CSS/JavaScript interface in a Tauri 2 Rust host. Its welcome screen, navigation, themed panels, About drawer and searchable offline licence viewer informed this design. No AniCanto application code, models, fonts or artwork are incorporated.
 
@@ -108,13 +108,13 @@ The existing **GPL-3.0-or-later** licence remains unchanged. About explains the 
 
 The collector uses Cargo.lock and the active dependency trees for macOS ARM/Intel and Windows x64, including build tools. For notices missing from crate packages, checked-in originals are accepted only when their recorded crate version, VCS revision and SHA-256 match. Missing source or notice evidence stops packaging. The inventory is generated before embedding the web assets; rebuild the app after changes.
 
-Mac packaging writes the launchable app directly to `dist/FileMaker Script Bridge.app`. ZIPs, matching `project-source.tar.gz` and `component-sources.tar.gz`, and release records are stored in `.build/releases/1.0.0/`, keeping `dist` free of intermediate files. The Windows installer is `dist/FileMaker Script Bridge.exe`; its staged payload, DLL audit, hashes and build receipt are retained beside the archives. See [Windows build and acceptance](WINDOWS_BUILD.md). Component crate archives are checked against Cargo.lock checksums. Keep the binary and its matching source archives together when distributing this version. The source includes the frontend, worker, Rust code, build scripts and supplemental notices. Use the compiler/platform tools identified above to rebuild. Original Swift and operating-system runtime/toolchain components retain their own terms.
+Mac packaging writes the launchable app directly to `dist/Script Bridge.app`. ZIPs, matching `project-source.tar.gz` and `component-sources.tar.gz`, and release records are stored in `.build/releases/1.1.0/`, keeping `dist` free of intermediate files. The Windows installer is `dist/Script Bridge.exe`; its staged payload, DLL audit, hashes and build receipt are retained beside the archives. See [Windows build and acceptance](WINDOWS_BUILD.md). Component crate archives are checked against Cargo.lock checksums. Keep the binary and its matching source archives together when distributing this version. The source includes the frontend, worker, Rust code, build scripts and supplemental notices. Use the compiler/platform tools identified above to rebuild. Original Swift and operating-system runtime/toolchain components retain their own terms.
 
 See [GNU GPL version 3](https://www.gnu.org/licenses/gpl-3.0.html), [Tauri sidecar packaging](https://v2.tauri.app/develop/sidecar/) and [Tauri capabilities](https://v2.tauri.app/security/capabilities/).
 
 ## Optional on-device AI generation
 
-The welcome screen has two draft entry paths: external AI text and the Qwen playground. Both finish in the same workspace and authoritative Swift validator. Generation cannot write the native clipboard or execute a FileMaker script.
+The welcome screen has two draft entry paths: external AI text and the AI playground. Both finish in the same workspace and authoritative Swift validator. Generation cannot write the native clipboard or execute a FileMaker script.
 
 Qwen3.5 9B and 35B-A3B are offered as pinned Unsloth Q4_K_M conversions of Qwen models under Apache-2.0. The native runtime is the official llama.cpp b11669 build (source revision `620d2225cc436ab0b001e3200e590e3b286ef9ab`), under MIT with original component notices. Mac uses Metal; the Windows runtime currently selected is the portable x64 CPU build. Windows runtime speed and full application acceptance still require native verification.
 
@@ -127,3 +127,59 @@ Grounding supplies the bridge's editable step names and selected sections of `SU
 Generation streams into a draft pane, runs strict validation, and can request one repair using the actual diagnostics. Remaining errors remain visible. Choosing Review in workspace is explicit; copying native steps still recompiles authoritatively. The engine cannot establish schema validity or business correctness.
 
 `Scripts/prepare-ai-runtime.py --fetch` obtains the pinned native archive and corresponding source once. Offline packaging checks their hashes. `Scripts/collect-ai-notices.py` adds original runtime, vendored-source and optional-model notices to the viewer. Releases retain `inference-runtime-source.tar.gz` with the Rust/component and project sources. The 9B real-model integration test is gated because it needs the 5.68 GB fixture and local inference permissions; normal unit tests do not download model weights.
+
+
+## PDF amendments and syntax colours (1.1.0)
+
+The shared editor retains a native textarea for input, selection and accessible text.
+An escaped token paint layer provides theme-aware script colours; both scroll axes,
+line numbers and native scrollbar dimensions stay synchronized. Clipboard text is unchanged.
+
+The playground accepts one FileMaker script PDF (15 MB, 40 pages, 120,000 extracted
+characters maximum). Bundled Mozilla PDF.js 6.4.299 reads selectable text locally,
+with scripting, eval, XFA and image decoding disabled. Text is grouped by printed
+position; page boundaries, wrap breaks and metadata remain visible in the preview.
+The generation prompt distinguishes print metadata from executable steps and requests
+a complete replacement, including unchanged code. Scans need OCR first; encrypted,
+empty, unreadable and oversized documents receive an explicit error. Extraction does
+not establish that the original script is correct or restore native saved options.
+
+PDF text stays in playground memory across navigation, and can be previewed, replaced
+or removed. It is sent only to the local inference server when Generate is selected.
+The host independently validates its metadata and text limits. The server uses a
+32,768-token context; actual chat-template token counts reserve up to 16,384 output
+tokens with source-size headroom. Oversized requests fail instead of truncating source.
+Cut-off/interrupted output cannot be copied as a completed replacement. The existing
+validator/review/native clipboard path remains authoritative for supported syntax.
+PDF.js, its compatibility polyfills, CMaps and standard fonts have verified original
+licence notices in the application component viewer. No user PDFs belong in source,
+release archives, screenshots or test fixtures committed to the repository.
+
+
+Before source-inclusive packaging on a new checkout, run
+`python3 Scripts/prepare-pdf-sources.py --download` once. Both source archives are
+pinned by SHA-256 and retained in `.build/pdf-runtime-sources/`; subsequent checks
+are offline. Packaging includes them in `frontend-runtime-source.tar.gz` beside
+the project, Rust component and inference-engine source archives.
+
+
+## Independent branding and model selection
+
+The public app name and download bundles are **Script Bridge**, with **for use
+with FileMaker Pro** as compatibility text. The stable Tauri identifier,
+conversion-worker protocol, old preservation/TODO markers and Windows registry
+identifiers remain for upgrade and session compatibility; these are not the
+public product name. Windows setup replaces the old Start menu shortcut and
+checks that either version's window is closed before updating.
+
+Google Gemma 4 E4B joins the optional model catalogue as a pinned ggml-org Q4_0
+conversion (4,590,807,392 bytes; SHA-256 in the catalogue). It uses Apache-2.0,
+with separate Google publisher and ggml-org converter attribution. Its 12 GB
+memory recommendation includes headroom; E4B denotes effective parameters,
+not total weights or a guarantee for 4 GB computers. Both the simple dialog
+and XLSX export inference fixtures passed the authoritative Swift validator
+on the development Mac. Model quality and Windows acceptance are separate.
+
+The packaged macOS inference libraries require macOS 13.3; the bundle minimum
+and download requirements reflect that limit. See the promotion/licensing
+review for remaining interoperability and publication considerations.

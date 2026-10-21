@@ -17,7 +17,7 @@ import importlib.util
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / 'Desktop/src-tauri/Cargo.toml'
 VERSION = tomllib.loads(MANIFEST.read_text())['package']['version']
-MAC_BUILD = '2026102004'
+MAC_BUILD = '2026102104'
 HOST = 'filemaker-script-bridge-desktop' + ('.exe' if os.name == 'nt' else '')
 WORKER = 'FileMakerBridgeWorker' + ('.exe' if os.name == 'nt' else '')
 
@@ -49,6 +49,7 @@ def build(debug=False):
     run([sys.executable, 'Scripts/prepare-ai-runtime.py'])
     run([sys.executable, 'Scripts/collect-ai-notices.py'])
     run([sys.executable, 'Scripts/collect-platform-notices.py'])
+    run([sys.executable, 'Scripts/collect-pdf-notices.py'])
     hello = subprocess.run([str(Path(binary_dir) / WORKER)], input='{"op":"hello"}\n', capture_output=True, text=True, check=True)
     catalogue = json.loads(hello.stdout)['result']['catalogue']
     (ROOT / 'Desktop/web/assets/catalogue.json').write_text(json.dumps(catalogue, indent=2) + '\n')
@@ -81,6 +82,16 @@ def source_archives(output):
             expected = lock[entry['name'], entry['version']]['checksum']
             if hashlib.sha256(source.read_bytes()).hexdigest() != expected: raise RuntimeError(f'Source checksum mismatch: {filename}')
             archive.add(source, arcname=filename)
+    # PDF.js uses its original JS sources; include the exact preferred source
+    # archives with the binary's other corresponding-source materials.
+    run([sys.executable, 'Scripts/prepare-pdf-sources.py'])
+    pdf_sources = json.loads((ROOT / 'Desktop/notices/pdfjs/SOURCE.json').read_text())['sourceArchives']
+    with tarfile.open(output / 'frontend-runtime-source.tar.gz', 'w:gz') as archive:
+        for row in pdf_sources:
+            path = ROOT / '.build/pdf-runtime-sources' / row['file']
+            if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != row['sha256']:
+                raise RuntimeError('Matching PDF reader source missing: ' + row['file'] + '. Fetch its pinned URL in Desktop/notices/pdfjs/SOURCE.json.')
+            archive.add(path, arcname=row['file'])
 
 
 def release_manifest(output):
@@ -100,7 +111,7 @@ def package(host, worker, include_sources=True):
     dist = ROOT / 'dist'
     dist.mkdir(exist_ok=True)
     if sys.platform == 'darwin':
-        app = dist / 'FileMaker Script Bridge.app'
+        app = dist / 'Script Bridge.app'
         if app.exists(): shutil.rmtree(app)
         contents = app / 'Contents'
         (contents / 'MacOS').mkdir(parents=True)
@@ -118,18 +129,18 @@ def package(host, worker, include_sources=True):
             if binary.suffix == '.dylib' or binary.name == 'llama-server':
                 run(['codesign', '--force', '--sign', '-', binary])
         shutil.copy2(ROOT / 'Desktop/web/assets/notices.json', resources / 'component-notices.json')
-        info = dict(CFBundleName='FileMaker Script Bridge', CFBundleDisplayName='FileMaker Script Bridge', CFBundleIdentifier='com.sckc.filemaker-script-bridge', CFBundleExecutable='FileMakerScriptBridge', CFBundlePackageType='APPL', CFBundleShortVersionString=VERSION, CFBundleVersion=MAC_BUILD, CFBundleIconFile=f'{icon_name}.icns', LSMinimumSystemVersion='13.0', NSHighResolutionCapable=True, LSApplicationCategoryType='public.app-category.developer-tools', NSHumanReadableCopyright='Copyright © 2026 SCKC. GPL-3.0-or-later.')
+        info = dict(CFBundleName='Script Bridge', CFBundleDisplayName='Script Bridge', CFBundleIdentifier='com.sckc.filemaker-script-bridge', CFBundleExecutable='FileMakerScriptBridge', CFBundlePackageType='APPL', CFBundleShortVersionString=VERSION, CFBundleVersion=MAC_BUILD, CFBundleIconFile=f'{icon_name}.icns', LSMinimumSystemVersion='13.3', NSHighResolutionCapable=True, LSApplicationCategoryType='public.app-category.developer-tools', NSHumanReadableCopyright='Copyright © 2026 SCKC. GPL-3.0-or-later.')
         (contents / 'Info.plist').write_bytes(plistlib.dumps(info))
         run(['codesign', '--force', '--sign', '-', contents / 'MacOS/FileMakerBridgeWorker'])
         run(['codesign', '--force', '--sign', '-', app])
         run(['codesign', '--verify', '--deep', '--strict', app])
-        archive = output / 'FileMaker-Script-Bridge-macOS.zip'
+        archive = output / 'Script-Bridge-macOS.zip'
         if archive.exists(): archive.unlink()
         run(['/usr/bin/ditto', '-c', '-k', '--keepParent', '--norsrc', app, archive])
     elif os.name == 'nt':
         # Windows developer package requires an installed official Swift runtime/toolchain.
         # Shipping an incomplete DLL set would produce a broken standalone app.
-        app = output / 'FileMaker-Script-Bridge-Windows-developer'
+        app = output / 'Script-Bridge-Windows-developer'
         app.mkdir(exist_ok=True)
         shutil.copy2(host, app / 'FileMakerScriptBridge.exe')
         shutil.copy2(worker, app / WORKER)
@@ -137,7 +148,7 @@ def package(host, worker, include_sources=True):
         for name in ['LICENSE', 'NOTICE.txt']: shutil.copy2(ROOT / name, app / name)
         shutil.copy2(ROOT / 'Desktop/web/assets/notices.json', app / 'component-notices.json')
         (app / 'WINDOWS-DEVELOPER.txt').write_text('Requires the official Swift 6.4 x64 toolchain/runtime on PATH and Microsoft Edge WebView2 Runtime. Native FileMaker paste/copy acceptance remains required. This package is unsigned.\nhttps://www.swift.org/install/windows/\n')
-        shutil.make_archive(str(output / 'FileMaker-Script-Bridge-Windows-developer'), 'zip', output, app.name)
+        shutil.make_archive(str(output / 'Script-Bridge-Windows-developer'), 'zip', output, app.name)
     else:
         raise RuntimeError('Packaging targets macOS and Windows only.')
     if include_sources:

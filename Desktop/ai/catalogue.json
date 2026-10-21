@@ -32,6 +32,26 @@
   },
   "models": [
     {
+      "id": "gemma4-e4b",
+      "name": "Google Gemma 4 E4B",
+      "publisher": "Google DeepMind",
+      "converter": "ggml-org",
+      "repository": "ggml-org/gemma-4-E4B-it-GGUF",
+      "revision": "a69f018d7678a2b9f5e705f8903d6fb29b9b25dc",
+      "filename": "gemma-4-E4B-it-Q4_0.gguf",
+      "bytes": 4590807392,
+      "sha256": "a555b900214b477d8880e7832e0b8925e139b0159640036b09fe472b6f2097f2",
+      "url": "https://huggingface.co/ggml-org/gemma-4-E4B-it-GGUF/resolve/a69f018d7678a2b9f5e705f8903d6fb29b9b25dc/gemma-4-E4B-it-Q4_0.gguf",
+      "license": "Apache-2.0",
+      "licenseFile": "Gemma4-LICENSE.txt",
+      "quantization": "Q4_0",
+      "recommendedRAMGB": 12,
+      "estimatedModelGB": 6,
+      "description": "A lighter option: 4.5B effective parameters, 8B including embeddings. Text generation in this app.",
+      "sourceURL": "https://huggingface.co/google/gemma-4-E4B-it",
+      "modelCardURL": "https://ai.google.dev/gemma/docs/core/model_card_4"
+    },
+    {
       "id": "9b",
       "name": "Qwen3.5 9B",
       "publisher": "Qwen",
@@ -45,7 +65,10 @@
       "license": "Apache-2.0",
       "recommendedRAMGB": 16,
       "estimatedModelGB": 10,
-      "sourceURL": "https://huggingface.co/Qwen/Qwen3.5-9B"
+      "sourceURL": "https://huggingface.co/Qwen/Qwen3.5-9B",
+      "licenseFile": "Qwen-LICENSE.txt",
+      "quantization": "Q4_K_M",
+      "description": "A smaller general model for script drafts."
     },
     {
       "id": "35b",
@@ -61,7 +84,10 @@
       "license": "Apache-2.0",
       "recommendedRAMGB": 48,
       "estimatedModelGB": 30,
-      "sourceURL": "https://huggingface.co/Qwen/Qwen3.5-35B-A3B"
+      "sourceURL": "https://huggingface.co/Qwen/Qwen3.5-35B-A3B",
+      "licenseFile": "Qwen-LICENSE.txt",
+      "quantization": "Q4_K_M",
+      "description": "A larger model for computers with more memory."
     }
   ]
 }

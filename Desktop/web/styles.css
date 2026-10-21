@@ -20,3 +20,21 @@
 /* Keep the final FileMaker action clear, including why it is unavailable. */
 .action-buttons .filemaker-copy .copy-icon{display:grid;color:inherit;margin-top:0;line-height:1}.action-buttons .filemaker-copy .copy-button-label{display:flex;color:inherit;margin-top:0;line-height:1.3}
 .action-buttons .filemaker-copy{min-height:52px;padding:9px 17px;gap:11px;box-shadow:0 3px 9px #7157b822}.copy-icon{display:grid;place-items:center;width:31px;height:31px;background:#ffffff22;border-radius:8px}.copy-icon svg{width:22px;height:22px}.copy-button-label{display:flex;flex-direction:column;align-items:flex-start;gap:4px}.action-buttons .copy-button-label strong{font-size:12px;color:inherit;line-height:1.25}.action-buttons .copy-button-label small{font-size:9px;font-weight:450;color:inherit;line-height:1.3}.action-buttons .filemaker-copy:disabled{opacity:1;box-shadow:none;border-color:#c3b4df;background:var(--tint);color:var(--accent-dark);border-style:dashed}.filemaker-copy:disabled .copy-icon{background:#7157b818}.dark .filemaker-copy:disabled{color:var(--accent);border-color:#74628c}.dark .filemaker-copy:disabled .copy-icon{background:#b69adf18}
+
+/* The text and paint layers share every metric, including native scrollbar space. */
+.editor-code{position:relative;flex:1;min-width:0;min-height:0;overflow:hidden}
+#script-editor,#script-highlight{font:12px/1.9 ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:normal;tab-size:4;white-space:pre;word-wrap:normal;overflow-wrap:normal;padding:0 18px 20px 2px;margin:0;border:0;border-radius:0}
+#script-editor{position:relative;display:block;width:100%;height:100%;color:transparent;caret-color:var(--ink);-webkit-text-fill-color:transparent;background:transparent}
+#script-editor::placeholder{color:#aaa6b7;-webkit-text-fill-color:#aaa6b7}
+#script-highlight{position:absolute;top:0;left:0;pointer-events:none;overflow:hidden;color:var(--ink)}
+#script-editor::selection{background:#a18bd54d}
+.syntax-step{color:#195cc7}.syntax-variable{color:#a92e94}.syntax-string{color:#a84a06}.syntax-comment{color:#287741}.syntax-field{color:#16777e}.syntax-number,.syntax-constant{color:#087b80}.syntax-function,.syntax-punctuation{color:#7046ac}
+.dark .syntax-step{color:#8ab9ff}.dark .syntax-variable{color:#efa0dc}.dark .syntax-string{color:#f5b572}.dark .syntax-comment{color:#8acb95}.dark .syntax-field,.dark .syntax-number,.dark .syntax-constant{color:#83d4d0}.dark .syntax-function,.dark .syntax-punctuation{color:#c7a6ef}
+@media (forced-colors:active){#script-highlight{display:none}#script-editor{color:CanvasText;-webkit-text-fill-color:CanvasText;caret-color:CanvasText}}
+
+.pdf-attachment{margin:18px 0;padding:16px;border:1px dashed #c5b9db;border-radius:10px;background:var(--wash)}
+.attachment-heading,.attachment-file{display:flex;align-items:center;justify-content:space-between;gap:14px}.attachment-heading h3{font-size:12px}.attachment-heading p{font-size:11px;color:var(--muted);margin-top:5px}.pdf-attachment>small{display:block;font-size:10px;color:var(--muted);margin-top:10px}.attachment-file{margin-top:13px;padding:12px;background:var(--surface);border:1px solid var(--line);border-radius:8px;font-size:12px}.attachment-file strong{overflow-wrap:anywhere}.attachment-file small{display:block;font-size:10px;color:var(--muted);margin-top:5px}.attachment-preview{margin-top:12px;font-size:11px}.attachment-preview summary{cursor:pointer;color:var(--accent)}.attachment-preview pre{max-height:220px;overflow:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px;margin-top:9px;padding:12px;white-space:pre-wrap}.attachment-review-note{font-size:10px;color:var(--muted);margin-top:10px}#ai-attachment-error{font-size:11px;color:var(--red);margin-top:10px}
+
+.brand small{font-size:7px;letter-spacing:1.1px;white-space:nowrap;line-height:1.5}.independence-note{font-size:10px;color:var(--muted);line-height:1.7;margin-top:20px;max-width:850px}
+
+@media(min-width:1800px){.playground-page{max-width:1960px}.playground-grid{grid-template-columns:minmax(0,1fr) 680px}.ai-sidebar{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}.model-panel{grid-row:span 2}.model-license{grid-column:2}}

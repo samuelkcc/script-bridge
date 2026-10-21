@@ -1,6 +1,6 @@
-# Windows x64 build — 1.0.0
+# Windows x64 build — 1.1.0
 
-The Windows app uses the same `Desktop/web/` assets as macOS. The Rust host, Swift conversion worker and llama.cpp runtime are native x64 Windows binaries. `dist/FileMaker Script Bridge.exe` is a per-user installer, not the bare application executable. It installs the app, its DLLs and an uninstaller; users do not need a Swift installation. Setup downloads Microsoft WebView2 from Microsoft if it is missing. Model weights remain optional downloads.
+The Windows app uses the same `Desktop/web/` assets as macOS. The Rust host, Swift conversion worker and llama.cpp runtime are native x64 Windows binaries. `dist/Script Bridge.exe` is a per-user installer, not the bare application executable. It installs the app, its DLLs and an uninstaller; users do not need a Swift installation. Setup downloads Microsoft WebView2 from Microsoft if it is missing. Model weights remain optional downloads.
 
 The current installer was cross-compiled on macOS. Native Windows installation, display, FileMaker copy/paste and AI inference require acceptance testing. The package is unsigned. Windows inference currently uses the portable CPU runtime; macOS uses Metal. This affects speed, not the shared interface.
 
@@ -31,6 +31,7 @@ python3 Scripts/collect-desktop-notices.py
 python3 Scripts/prepare-ai-runtime.py --fetch --target windows-x64
 python3 Scripts/collect-ai-notices.py
 python3 Scripts/collect-platform-notices.py
+python3 Scripts/collect-pdf-notices.py
 ```
 
 The platform notice originals and their provenance are checked in. `fetch-platform-notices.py` is a maintainer tool for refreshing them, not an offline build requirement. The Swift packages are obtained from the URLs above and checked against the recorded hashes; code-signature verification of those toolchain downloads was not established during this cross-build.
@@ -57,7 +58,7 @@ python3 Scripts/package-windows.py
 
 Packaging checks every staged app/runtime EXE and DLL is AMD64 PE32+, resolves regular and delayed imports recursively, and fails for missing non-system dependencies. It includes the required Swift/Foundation/ICU and Microsoft VC redistributable DLLs, their original licence texts, the app licence and full component inventory. The zlib-compressed NSIS installer creates a Start menu shortcut and registered uninstaller without requiring administrator rights. Uninstall removes package-owned files and retains model data; use Remove model in the playground to reclaim models.
 
-Staging, file hashes, the dependency audit and build receipt are retained in `.build/releases/1.0.0/`; only the final `.exe` is placed in `dist`. Build matching source archives with the desktop packager when distributing a release. The Mac build writes its `.app` beside the installer and source archives outside `dist`.
+Staging, file hashes, the dependency audit and build receipt are retained in `.build/releases/1.1.0/`; only the final `.exe` is placed in `dist`. Build matching source archives with the desktop packager when distributing a release. The Mac build writes its `.app` beside the installer and source archives outside `dist`.
 
 ## Windows acceptance
 

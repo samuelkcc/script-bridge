@@ -1,11 +1,11 @@
-FileMaker Script Bridge 1.0.0
+Script Bridge 1.1.0
 Copyright © 2026 SCKC
 SPDX-License-Identifier: GPL-3.0-or-later
 
 The original application code, shared interface and conversion worker are
 licensed under the GNU General Public License version 3 or, at your option,
 any later version. See LICENSE for the complete terms and warranty disclaimer.
-This desktop edition modifies and extends FileMaker Script Bridge (2026.09.29).
+This desktop edition modifies and extends Script Bridge (2026.09.29).
 
 Built independently by SCKC as a hobby project. FileMaker and FileMaker Pro
 are trademarks of Claris International Inc. This project is not affiliated
@@ -22,14 +22,15 @@ No AniCanto application code, artwork, fonts or MIT application licence
 are incorporated. The interface takes inspiration from its shared studio
 layout. This app uses system fonts and original inline SVG symbols.
 
-Source: https://github.com/samuelkcc/filemaker-script-bridge
+Source: https://github.com/samuelkcc/script-bridge
 When redistributing a binary, provide its complete corresponding source,
 including the matching conversion worker, interface, notices and build scripts,
 under the terms of the GPL. This notice does not replace any licence text.
 
 Optional AI generation
-Qwen3.5 9B and Qwen3.5 35B-A3B model weights use Apache-2.0.
-The app offers pinned Q4_K_M conversions published by Unsloth, identifying
+Google Gemma 4 E4B, Qwen3.5 9B and Qwen3.5 35B-A3B model weights use Apache-2.0.
+The app offers pinned Gemma Q4_0 conversions by ggml-org and Qwen Q4_K_M
+conversions by Unsloth, identifying
 the converter separately from the original Qwen publisher. Model weights
 are downloaded only when chosen and are not bundled in the application.
 Each exact download is verified against its recorded size and SHA-256.
@@ -43,3 +44,18 @@ Model and engine licences do not replace the application GPL licence.
 The playground uses the bridge's own syntax reference and supported-step
 list as generation context. AI-generated scripts still require review and
 FileMaker testing. The app does not execute generated scripts in a database.
+
+Local PDF script attachments
+Mozilla PDF.js 6.4.299 (Apache-2.0) reads selectable PDF text on device.
+Its compatibility build includes core-js 3.50.0 (MIT); original CMap and
+font notices are retained with the vendored assets and in the offline viewer.
+Exact package integrity and individual file SHA-256 values are recorded in
+Desktop/notices/pdfjs/SOURCE.json. No PDF rendering scripts or document
+JavaScript are executed. Attached text remains in memory until removed or
+until the app closes; the original PDF is not changed or uploaded.
+
+Script Bridge is independently developed by SCKC for use with FileMaker Pro.
+It is not authorized, sponsored, endorsed by, supported by or affiliated with
+Claris International Inc. FileMaker and FileMaker Pro are Claris trademarks.
+Google, Gemma, Qwen and converter names identify their respective publishers;
+they do not imply approval or sponsorship of this application.
