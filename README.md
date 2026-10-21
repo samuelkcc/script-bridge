@@ -42,8 +42,18 @@ Script Bridge keeps the shared Mac and Windows workspace introduced in 1.0.0 and
 
 | Platform | Package | Status and requirements |
 | --- | --- | --- |
-| **macOS** | [Download the app ZIP](https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-macOS.zip) | Apple Silicon · macOS 13.3 or later · built and checked on macOS |
+| **macOS** | [Download the app ZIP](https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-macOS.zip) | Apple Silicon · macOS 13.3 or later · daily use and extensive hands-on testing |
 | **Windows** | [Download the x64 installer](https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-Windows-x64.exe) | Windows 10/11 x64 · available for native Windows testing |
+
+### Developed on macOS, shared with Windows users
+
+I develop and use Script Bridge on macOS in my daily FileMaker work. The Mac version receives extensive hands-on debugging and testing, with improvements driven by the issues and small frustrations I find along the way.
+
+I created the Windows edition to share the same vision: making life easier for other FileMaker users and developers facing the same script-handover problem. It shares the Mac interface, but it has not yet received the same hands-on testing. Native Windows validation is still pending, so some behaviour may need fixes.
+
+If something does not work as expected, please [report it here on GitHub](https://github.com/samuelkcc/script-bridge/issues/new). Include your Windows and FileMaker Pro versions, what you expected, what happened and the steps to reproduce it. A screenshot or sample script with private information removed is helpful. I can use my Windows machine to reproduce and validate your case.
+
+— Samuel / SCKC
 
 **Mac:** Extract the ZIP and move **Script Bridge.app** to Applications. The app is ad-hoc signed and is not Apple-notarized. Your macOS security settings may require an additional first-open confirmation.
 

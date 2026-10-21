@@ -4,6 +4,8 @@ The Windows app uses the same `Desktop/web/` assets as macOS. The Rust host, Swi
 
 The current installer was cross-compiled on macOS. Native Windows installation, display, FileMaker copy/paste and AI inference require acceptance testing. The package is unsigned. Windows inference currently uses the portable CPU runtime; macOS uses Metal. This affects speed, not the shared interface.
 
+Script Bridge is developed and used daily on macOS, where it receives extensive hands-on debugging and testing. The Windows edition shares the same vision and interface for other FileMaker users, but has not yet received the same hands-on validation. If it does not work as expected, [report the issue on GitHub](https://github.com/samuelkcc/script-bridge/issues/new) with your Windows and FileMaker Pro versions, reproduction steps, expected result and actual result. Remove private information from any sample script or screenshot. Samuel can use his Windows machine to reproduce and validate reported cases.
+
 ## Pinned cross-build inputs
 
 Use a matching Swift compiler and Windows SDK. Apple's system Swift cannot load the Swift.org Windows binary modules. Save the following downloads in `.build/` under the indicated names. Their SHA-256 pins are checked by `Scripts/prepare-windows-toolchain.py`.
