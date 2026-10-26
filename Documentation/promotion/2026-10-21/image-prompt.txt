@@ -1,0 +1,25 @@
+Generated using the built-in image generation tool.
+
+Use case: ads-marketing.
+Asset type: a finished professional square LinkedIn launch graphic for an independent desktop application, 1:1 aspect ratio, ideally 2048 by 2048 pixels, sharp readable typography.
+Primary request: tell the story of the awkward gap between an AI-generated long script and getting reviewed native steps into FileMaker Pro Script Workspace. The product is Script Bridge, an independent SCKC hobby project.
+
+Design: match a refined developer productivity app: near-white and very pale lavender background, deep charcoal typography, rich muted purple (#7157b8), small mint green accents. Restrained premium editorial design, generous negative space, crisp grid, subtle paper depth. Friendly and practical. No stock photo, robots, brains, glowing circuitry, neon, exaggerated magic effects, or clutter.
+
+Composition: inset safe margins on every edge. At top a small original purple rounded-square bridge symbol made of two opposing white arrows, next to the brand "Script Bridge", with a smaller compatibility subtitle below. Do not use a Claris or FileMaker logo.
+Below, a large bold two-line headline, the second line purple:
+"AI wrote the script."
+"Now what?"
+
+Main visual in the central lower half: an elegant conceptual paper-to-workspace bridge. A stack of long readable script pages on the left, connected by a simple sculptural purple bridge/arrow to a neat light panel of organised script steps on the right, with subtle mint review checkmarks. Make it an editorial illustration, NOT a purported screenshot of FileMaker or the app. The left stack should convey many lines and tedious retyping without being messy. The right panel conveys orderly review and copy/paste. Very limited readable script text, optional simple lines such as "Set Variable", "If", "Show Custom Dialog", "End If". Small labels on panels: "AI DRAFT" and "REVIEWED STEPS".
+
+Text to render verbatim, and no other marketing copy:
+Top brand: "Script Bridge"
+Compatibility subtitle: "For use with FileMaker Pro"
+Headline: "AI wrote the script." then "Now what?"
+Panel labels: "AI DRAFT" and "REVIEWED STEPS"
+Below the illustration, a concise clear workflow: "Draft → Review → Copy → Paste"
+Bottom URL: "github.com/samuelkcc/script-bridge"
+Very small but readable footer: "Independent software by SCKC · Not affiliated with Claris"
+
+Constraints: all main copy highly legible at mobile feed size, accurate spelling, no statistics, no 90% claim, no claim of guaranteed script correctness, no official endorsement, no third-party company logos, no watermark. The square graphic must feel composed as a single finished campaign image.

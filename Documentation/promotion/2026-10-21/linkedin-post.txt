@@ -1,0 +1,35 @@
+The AI wrote the script. Then came the headache.
+
+I’ve been introducing AI into my FileMaker workflow, especially for more complicated scripts. With the right context and a few rounds of refinement, it can help work through logic, edge cases and error handling.
+
+But then you have hundreds of lines of useful script text—and you need to get those steps into FileMaker Pro Script Workspace.
+
+Rebuilding them one by one is tedious. The more detailed the script becomes, the bigger that job gets.
+
+I didn’t want the handover to eat up the time AI had saved.
+
+That’s why I built Script Bridge.
+
+There are two ways to work:
+
+• Generate inside the app. Script Bridge includes a built-in local LLM runtime. Download an optional Gemma or Qwen model and create drafts on your own computer.
+
+• Keep using ChatGPT or another AI tool. Copy its generated script text and paste it into Script Bridge.
+
+Either way, review the draft, copy supported native steps, switch to FileMaker Script Workspace and paste.
+
+That moment when the steps appear feels a little like magic. ✨
+
+The local AI playground also lets you attach a printed script PDF, describe a change and ask for a full replacement draft.
+
+For me, this is a quality-of-life improvement: more time thinking about the workflow, and less time rebuilding it step by step.
+
+Generated scripts still need review and testing, and some step options need manual setup. The helper takes care of much of the repetitive handover.
+
+If you’re a FileMaker user or developer exploring AI-assisted scripting, give it a try. I’d love to hear how it fits your workflow.
+
+https://github.com/samuelkcc/script-bridge
+
+An independent hobby project by SCKC, for use with FileMaker Pro. Not affiliated with Claris.
+
+#FileMaker #FileMakerPro #LocalLLM #AIWorkflow #OpenSource

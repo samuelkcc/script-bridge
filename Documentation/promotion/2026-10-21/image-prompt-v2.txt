@@ -1,0 +1,26 @@
+Edited using the built-in image generation tool, with the first square graphic as its reference.
+
+Use case: text-localization / ads-marketing edit.
+Edit the supplied square Script Bridge LinkedIn graphic. Preserve the existing refined white/lavender/purple/mint design, original bridge-and-paper illustration, the Script Bridge brand, compatibility subtitle, main headline, URL and independence footer. Keep it a finished square image with generous safe margins and sharp, mobile-legible lettering.
+
+Required change: add a clearly visible, balanced two-option feature strip between the headline and the main illustration. It must explain the two ways to use the app, including its local LLM runtime. Make room by modestly reducing the headline and illustration sizes and recomposing their vertical spacing. Keep all information within the square without overlaps or crowding. Use tasteful pale lavender outlined cards and small generic icons (a computer/chip for local inference and a chat/paste icon for the external draft). No company logos.
+
+New feature-strip text, verbatim:
+Left card heading: "LOCAL LLM RUNTIME"
+Left card subtitle: "Gemma / Qwen · optional model downloads"
+Small separator between the cards: "OR"
+Right card heading: "PASTE FROM CHATGPT"
+Right card subtitle: "Or another AI tool"
+
+Preserve existing exact copy:
+"Script Bridge"
+"For use with FileMaker Pro"
+"AI wrote the script."
+"Now what?"
+"AI DRAFT"
+"REVIEWED STEPS"
+"Draft → Review → Copy → Paste"
+"github.com/samuelkcc/script-bridge"
+"Independent software by SCKC · Not affiliated with Claris"
+
+The feature strip must be legible and prominent, not tiny footnote copy. The wording must make clear that model weights are optional downloads; do not imply Gemma or Qwen weights ship inside the installer. Do not claim ChatGPT runs locally or is embedded. The illustration remains conceptual, not a fabricated application screenshot. Do not add percentages, accuracy guarantees, watermarks or endorsement claims.
