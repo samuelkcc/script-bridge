@@ -85,6 +85,13 @@ impl AiService {
         } else {
             exe.parent().unwrap().join("ai-runtime")
         };
+        // Universal Mac packages keep the two official runtimes intact. Native
+        // packages retain their original flat runtime directory.
+        let folder = if folder.join(runtime_target()).is_dir() {
+            folder.join(runtime_target())
+        } else {
+            folder
+        };
         let runtime = if cfg!(debug_assertions) && !folder.is_dir() {
             PathBuf::from(env!("CARGO_MANIFEST_DIR"))
                 .join("../../.build/ai-runtime")

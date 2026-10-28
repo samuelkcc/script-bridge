@@ -12,7 +12,7 @@
 
 <sub>Independent software by SCKC. Not affiliated with, sponsored by or endorsed by Claris International Inc.</sub>
 
-<p><a href="https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-macOS.zip"><img src="Documentation/images/v1.1.0/download-macos.svg" alt="Download for macOS — Apple Silicon" height="44"></a>&nbsp;<a href="https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-Windows-x64.exe"><img src="Documentation/images/v1.1.0/download-windows.svg" alt="Download Windows x64 — testing build" height="44"></a></p>
+<p><a href="https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-macOS.zip"><img src="Documentation/images/v1.1.0/download-macos.svg" alt="Download for macOS — Apple Silicon" height="44"></a>&nbsp;<a href="https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-macOS-Universal.zip"><img src="Documentation/images/v1.1.0/download-macos-universal.svg" alt="Download for macOS — Universal, Apple Silicon and Intel" height="44"></a>&nbsp;<a href="https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-Windows-x64.exe"><img src="Documentation/images/v1.1.0/download-windows.svg" alt="Download Windows x64 — testing build" height="44"></a></p>
 
 [Release notes](https://github.com/samuelkcc/script-bridge/releases/tag/v1.1.0) · [Quick start](#your-first-script) · [Supported syntax](Documentation/SUPPORTED_SYNTAX.md) · [Licence](LICENSE)
 
@@ -42,7 +42,8 @@ Script Bridge keeps the shared Mac and Windows workspace introduced in 1.0.0 and
 
 | Platform | Package | Status and requirements |
 | --- | --- | --- |
-| **macOS** | [Download the app ZIP](https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-macOS.zip) | Apple Silicon · macOS 13.3 or later · daily use and extensive hands-on testing |
+| **macOS · Apple Silicon** | [Download the Apple Silicon ZIP](https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-macOS.zip) | Apple Silicon only · macOS 13.3 or later · daily use and extensive hands-on testing |
+| **macOS · Universal** | [Download the universal ZIP](https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-macOS-Universal.zip) | Apple Silicon and Intel · macOS 13.3 or later · current 1.1.0 interface and features |
 | **Windows** | [Download the x64 installer](https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-Windows-x64.exe) | Windows 10/11 x64 · available for native Windows testing |
 
 ### Developed on macOS, shared with Windows users
@@ -55,13 +56,13 @@ If something does not work as expected, please [report it here on GitHub](https:
 
 — Samuel / SCKC
 
-**Mac:** Extract the ZIP and move **Script Bridge.app** to Applications. The app is ad-hoc signed and is not Apple-notarized. Your macOS security settings may require an additional first-open confirmation.
+**Mac:** Choose the Apple Silicon ZIP for an Apple Silicon Mac, or the universal ZIP for an Intel Mac or a package that runs on both. Extract the ZIP and move the enclosed app to Applications (**Script Bridge.app** or **Script Bridge Universal.app**). Use one edition at a time; both share settings and downloaded models. The app is ad-hoc signed and is not Apple-notarized. Your macOS security settings may require an additional first-open confirmation.
 
 **Windows:** Run the installer, then open the app from Start. The installer includes the conversion worker and required DLLs; Swift does not need to be installed. Setup obtains Microsoft WebView2 from Microsoft if it is missing, which requires internet access. The installer is unsigned. Installation, display, FileMaker copy/paste and AI inference still need native Windows acceptance testing. [Windows test guide →](Documentation/WINDOWS_BUILD.md#windows-acceptance)
 
-The 1.1.0 Mac package is **Apple Silicon**. Intel Mac users can access the [previous universal SwiftUI release](https://github.com/samuelkcc/script-bridge/releases/tag/v2026.09.29), which has the older interface and no built-in AI playground.
+Both Mac downloads provide **version 1.1.0**, including PDF amendments, syntax colours and the AI playground. Intel Mac users can use the current universal edition without returning to an older release. The universal package includes native host and conversion-worker code for both architectures, with Metal inference on Apple Silicon and CPU inference on Intel. Intel hardware and FileMaker acceptance testing remain pending.
 
-FileMaker Pro 26 is the documented clipboard target and needs a separate valid licence and Claris-supported operating system. Model weights are optional downloads and are not included in either package. Matching source archives, original component sources and checksums are attached to the [1.1.0 release](https://github.com/samuelkcc/script-bridge/releases/tag/v1.1.0).
+FileMaker Pro 26 is the documented clipboard target and needs a separate valid licence and Claris-supported operating system. Model weights are optional downloads and are not included in the packages. Matching source archives, original component sources and checksums are attached to the [1.1.0 release](https://github.com/samuelkcc/script-bridge/releases/tag/v1.1.0).
 
 ## Your first script
 
@@ -93,7 +94,7 @@ FileMaker Pro 26 is the documented clipboard target and needs a separate valid l
 | **Qwen3.5 9B** · Q4_K_M | 5.68 GB | 16 GB or more |
 | **Qwen3.5 35B-A3B** · Q4_K_M | 22.02 GB | 48 GB or more |
 
-Memory figures are estimates with headroom. Actual use depends on context length and other applications. macOS inference uses Metal; the Windows package currently uses the portable CPU runtime, so generation speed differs.
+Memory figures are estimates with headroom. Actual use depends on context length and other applications. Apple Silicon inference uses Metal; Intel Mac and Windows packages use CPU runtimes, so generation speed differs.
 
 Model downloads are pinned to exact ggml-org (Gemma) and Unsloth (Qwen) GGUF conversions, verified by size and SHA-256, and stored outside the application. Select an interrupted model download to resume it. **Remove model** unloads and deletes an installed model; **Remove download** discards a partial download. Selecting it again downloads a fresh copy. The [model catalogue](Desktop/ai/catalogue.json) records versions, sources, sizes and licence details.
 
@@ -153,6 +154,10 @@ node --test Desktop/tests/*.test.mjs
 cargo test --locked --offline --manifest-path Desktop/src-tauri/Cargo.toml
 python3 Scripts/prepare-pdf-sources.py --download
 python3 Scripts/desktop.py package
+# Optional additional Mac package for both Apple Silicon and Intel.
+rustup target add aarch64-apple-darwin x86_64-apple-darwin
+python3 Scripts/prepare-ai-runtime.py --fetch --target macos-x64
+python3 Scripts/desktop.py package --universal
 ```
 
 Run the Swift suite with an Xcode installation that provides XCTest:

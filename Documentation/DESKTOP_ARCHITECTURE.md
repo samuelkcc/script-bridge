@@ -32,9 +32,9 @@ The frontend has no npm runtime dependencies or build framework. System fonts an
 | Swift conversion worker | Built and exercised locally | Native x64 PE worker cross-compiled with matching Swift 6.4 SDK; runtime acceptance pending |
 | Native clipboard | macOS aliases retained in Rust | `Mac-XMSS`/`Mac-XMSC` implementation, four-byte little-endian length prefix |
 | FileMaker acceptance | Existing engine/native XML evidence retained; new shell needs manual FileMaker acceptance | Requires real Windows FileMaker copy/paste captures and acceptance |
-| Packaging | Apple Silicon `.app` and ZIP; ad-hoc signed | Per-user x64 installer includes required runtime DLLs; setup installs WebView2 if missing |
+| Packaging | Separate Apple Silicon and universal (Apple Silicon + Intel) apps and ZIPs; ad-hoc signed | Per-user x64 installer includes required runtime DLLs; setup installs WebView2 if missing |
 
-The new Mac app is **Apple Silicon**, not a universal binary. The existing SwiftUI packaging script still creates the previous universal app. An Intel desktop build must compile both Rust host and Swift worker for Intel; the ARM app must not be labelled universal.
+The current desktop has separate **Apple Silicon-only** and **universal** downloads. The universal host and Swift conversion worker each contain `arm64` and `x86_64` slices. Its official, pinned inference runtimes remain intact in `Resources/ai-runtime/macos-arm64` and `macos-x64`; the host selects its compiled architecture. Apple Silicon uses Metal; Intel uses CPU inference. Flat runtime directories remain supported by the Apple Silicon-only and Windows packages. Intel hardware and FileMaker acceptance testing remain pending.
 
 The desktop edition retains the original `com.sckc.filemaker-script-bridge` application identity when replacing the old app, including its macOS bundle identifier and Tauri per-user data namespace.
 
@@ -72,9 +72,16 @@ python3 Scripts/desktop.py run --debug
 
 # Native release build + matching source archives.
 python3 Scripts/desktop.py package
+
+# Additional universal Mac package; retain the native-only app and ZIP.
+rustup target add aarch64-apple-darwin x86_64-apple-darwin
+python3 Scripts/prepare-ai-runtime.py --fetch --target macos-arm64
+python3 Scripts/prepare-ai-runtime.py --fetch --target macos-x64
+python3 Scripts/desktop.py package --universal
+python3 Scripts/audit-macos.py "dist/Script Bridge Universal.app"
 ```
 
-The commands build for the current host architecture. `Desktop/package.json` offers equivalent `npm run dev` / `npm run build` wrappers; npm install is unnecessary. `npm run preview` serves the layout for design inspection only, with clipboard and conversion unavailable.
+Without `--universal`, the commands build for the current host architecture. The universal option builds both architectures with a macOS 13.3 deployment target and merges the host and worker using `lipo`. Packaging audits the slices, deployment targets, runtime dependency closure and bundle signature before writing `Script-Bridge-macOS-Universal.zip` and `macos-universal-build-receipt.json`. `Desktop/package.json` offers equivalent native `npm run dev` / `npm run build` wrappers; npm install is unnecessary. `npm run preview` serves the layout for design inspection only, with clipboard and conversion unavailable.
 
 For restricted Mac environments, the script directs Swift module caches into `.build/`. If the selected Command Line Tools cannot run XCTest or SwiftUI plugins, select a working Xcode installation, for example `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer`. `BRIDGE_MACOS_SDK` and `BRIDGE_BUILD_SYSTEM` remain options on the original SwiftUI packaging script only.
 
@@ -108,7 +115,7 @@ The existing **GPL-3.0-or-later** licence remains unchanged. About explains the 
 
 The collector uses Cargo.lock and the active dependency trees for macOS ARM/Intel and Windows x64, including build tools. For notices missing from crate packages, checked-in originals are accepted only when their recorded crate version, VCS revision and SHA-256 match. Missing source or notice evidence stops packaging. The inventory is generated before embedding the web assets; rebuild the app after changes.
 
-Mac packaging writes the launchable app directly to `dist/Script Bridge.app`. ZIPs, matching `project-source.tar.gz` and `component-sources.tar.gz`, and release records are stored in `.build/releases/1.1.0/`, keeping `dist` free of intermediate files. The Windows installer is `dist/Script Bridge.exe`; its staged payload, DLL audit, hashes and build receipt are retained beside the archives. See [Windows build and acceptance](WINDOWS_BUILD.md). Component crate archives are checked against Cargo.lock checksums. Keep the binary and its matching source archives together when distributing this version. The source includes the frontend, worker, Rust code, build scripts and supplemental notices. Use the compiler/platform tools identified above to rebuild. Original Swift and operating-system runtime/toolchain components retain their own terms.
+Native Mac packaging writes the launchable app to `dist/Script Bridge.app`; universal packaging writes `dist/Script Bridge Universal.app` alongside it. ZIPs, matching project and component sources, and release records are stored in `.build/releases/1.1.0/`, keeping `dist` free of intermediate files. The universal edition adds `project-source-universal.tar.gz` and a build receipt while retaining the original ARM-only archive and its source. Both editions use the same locked dependency sources. The Windows installer is `dist/Script Bridge.exe`; its staged payload, DLL audit, hashes and build receipt are retained beside the archives. See [Windows build and acceptance](WINDOWS_BUILD.md). Component crate archives are checked against Cargo.lock checksums. Keep the binary and its matching source archives together when distributing this version. The source includes the frontend, worker, Rust code, build scripts and supplemental notices. Use the compiler/platform tools identified above to rebuild. Original Swift and operating-system runtime/toolchain components retain their own terms.
 
 See [GNU GPL version 3](https://www.gnu.org/licenses/gpl-3.0.html), [Tauri sidecar packaging](https://v2.tauri.app/develop/sidecar/) and [Tauri capabilities](https://v2.tauri.app/security/capabilities/).
 
@@ -116,7 +123,7 @@ See [GNU GPL version 3](https://www.gnu.org/licenses/gpl-3.0.html), [Tauri sidec
 
 The welcome screen has two draft entry paths: external AI text and the AI playground. Both finish in the same workspace and authoritative Swift validator. Generation cannot write the native clipboard or execute a FileMaker script.
 
-Qwen3.5 9B and 35B-A3B are offered as pinned Unsloth Q4_K_M conversions of Qwen models under Apache-2.0. The native runtime is the official llama.cpp b11669 build (source revision `620d2225cc436ab0b001e3200e590e3b286ef9ab`), under MIT with original component notices. Mac uses Metal; the Windows runtime currently selected is the portable x64 CPU build. Windows runtime speed and full application acceptance still require native verification.
+Qwen3.5 9B and 35B-A3B are offered as pinned Unsloth Q4_K_M conversions of Qwen models under Apache-2.0. The native runtime is the official llama.cpp b11669 build (source revision `620d2225cc436ab0b001e3200e590e3b286ef9ab`), under MIT with original component notices. Apple Silicon uses Metal; Intel Mac and Windows use CPU runtimes. Intel hardware and Windows runtime speed and full application acceptance still require native verification.
 
 The runtime is packaged inside the app. Weights are optional user downloads and remain outside it in the per-user app data folder. Models have separate pinned byte counts, revisions and SHA-256 digests. Transfers use HTTPS, enforce size, verify the complete digest before installation, retain partial files for resume and use an exclusive download lock. Verified receipts include file size, digest and modification time. A resumed server response must match its requested range, or a full response restarts cleanly. Cancellation is checked while reading chunks; generation cancellation kills the local model process.
 

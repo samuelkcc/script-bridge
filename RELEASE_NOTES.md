@@ -6,6 +6,14 @@ Generated scripts require comparison with the original, syntax review and databa
 
 The repository's former name and the release titles below are retained as history.
 
+### Additional universal Mac package (28 October 2026)
+
+- Add **Script-Bridge-macOS-Universal.zip**, build 2026102801, for Apple Silicon and Intel Macs running macOS 13.3 or later. Both use the current 1.1.0 interface, PDF amendments, syntax colours and AI playground; Intel users no longer need the older SwiftUI release.
+- Retain **Script-Bridge-macOS.zip** as the Apple Silicon-only download and retain the Windows setup installer.
+- Include both architectures in the Rust host and Swift conversion worker. Bundle the pinned Metal runtime for Apple Silicon and CPU runtime for Intel, selected automatically by the host.
+- Audit 71 native files for architectures, minimum macOS versions, runtime dependencies and ad-hoc signatures. The universal app launches and validates the example on Apple Silicon; conversion-worker integration and runtime startup also pass for the Intel slices under Rosetta. Intel hardware and FileMaker acceptance testing remain pending.
+- Add matching **project-source-universal.tar.gz** and a **macos-universal-build-receipt.json** alongside the existing release sources.
+
 ## FileMaker Script Bridge 1.0.0 (20 October 2026)
 
 - Mac build 2026102004: compile the app icon with Apple's icon compiler and use an explicit, build-specific icon filename to fix Finder's generic application placeholder.
