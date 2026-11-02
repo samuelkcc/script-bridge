@@ -2,11 +2,11 @@
 
 <img src="Resources/AppIcon.png" alt="Script Bridge icon" width="96" height="96">
 
-# Script Bridge
+# Script Bridge — for use with FileMaker Pro
 
-### An independent script workspace for use with FileMaker Pro.
+### Turn AI script drafts into native FileMaker script steps.
 
-<p>Paste a draft from your favourite AI tool, or write one with on-device Gemma or Qwen.<br>Review the result. Copy native steps. Keep building in FileMaker.</p>
+<p>A free, open-source desktop app for macOS and Windows.<br>Convert readable script text to native FileMaker Pro clipboard steps, or copy existing steps back to text.<br>Bring drafts from ChatGPT, Claude or another AI tool, or generate them locally with Gemma or Qwen.</p>
 
 **Version 1.1.0 · PDF amendments, script colours and a lighter local model**
 
@@ -14,15 +14,24 @@
 
 <p><a href="https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-macOS.zip"><img src="Documentation/images/v1.1.0/download-macos.svg" alt="Download for macOS — Apple Silicon" height="44"></a>&nbsp;<a href="https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-macOS-Universal.zip"><img src="Documentation/images/v1.1.0/download-macos-universal.svg" alt="Download for macOS — Universal, Apple Silicon and Intel" height="44"></a>&nbsp;<a href="https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-Windows-x64.exe"><img src="Documentation/images/v1.1.0/download-windows.svg" alt="Download Windows x64 — testing build" height="44"></a></p>
 
-[Release notes](https://github.com/samuelkcc/script-bridge/releases/tag/v1.1.0) · [Quick start](#your-first-script) · [Supported syntax](Documentation/SUPPORTED_SYNTAX.md) · [Licence](LICENSE)
+[Download](#download) · [Quick start](#your-first-script) · [FAQ](#frequently-asked-questions) · [Supported syntax](Documentation/SUPPORTED_SYNTAX.md) · [Release notes](https://github.com/samuelkcc/script-bridge/releases/tag/v1.1.0)
 
 </div>
+
+## What can Script Bridge do for FileMaker developers?
+
+- **Convert AI text to FileMaker scripts.** Validate a draft and copy supported steps into FileMaker Pro Script Workspace without retyping each step.
+- **Convert FileMaker scripts to text.** Copy native steps out of FileMaker for review, editing or use with an AI assistant.
+- **Generate script drafts with local AI.** Run optional Gemma or Qwen models on your computer, with no hosted AI account required.
+- **Amend scripts from a PDF.** Attach a selectable-text script printout, describe the change and review a replacement draft before pasting.
+
+Conversion and validation work without a model download. FileMaker Pro is a separate application with its own licence. Review and test scripts in your solution; the bridge validates supported syntax, not your database's business logic.
 
 ![Script Bridge 1.1.0 welcome screen with two ways to start a script](Documentation/images/v1.1.0/welcome.jpg)
 
 <p align="center"><sub>The running macOS app, shown in full. Mac and Windows share the same interface; native window controls differ.</sub></p>
 
-## A useful script should not mean retyping every step
+## How FileMaker script clipboard conversion works
 
 AI tools produce readable text. FileMaker Pro Script Workspace expects a private native clipboard format. Script Bridge connects the two: it validates readable script text and turns supported syntax into native steps you can paste into FileMaker. It also turns copied FileMaker steps back into readable text for review and editing.
 
@@ -66,7 +75,7 @@ FileMaker Pro 26 is the documented clipboard target and needs a separate valid l
 
 ## Your first script
 
-### Bring a draft from another AI tool
+### Copy a ChatGPT, Claude or other AI draft into FileMaker Pro
 
 1. Copy readable FileMaker-style script text from your AI tool or editor.
 2. Open **Script workspace → AI → FileMaker** and choose **Paste AI draft & copy**. If you type or edit directly, choose **Copy to FileMaker** after validation.
@@ -109,7 +118,7 @@ The built-in reference guides syntax; it does not inspect your database or estab
 
 PDFs are read locally (up to 15 MB, 40 pages and 120,000 extracted characters). The local model's context can impose a smaller limit; oversized requests are rejected without shortening the source. Scans need OCR first. A printout cannot retain hidden native step options. Full replacements can still omit requirements or need manual correction; test in a copy of your solution.
 
-### Review an existing FileMaker script
+### Export an existing FileMaker script to readable text
 
 Copy selected native steps in FileMaker, or copy a whole script from the Scripts pane. In the bridge, choose **FileMaker → Text**, then **Read FileMaker clipboard**. The resulting readable text is ready for your editor or AI tool. Native Windows clipboard transport differs from macOS and is part of the Windows acceptance checklist.
 
@@ -126,6 +135,28 @@ The app's reference covers **216 official script steps**, with **98 editable sub
 Preservation markers depend on in-memory originals. Closing the app discards those originals; copy the source steps from FileMaker again before continuing in a new session. Unrecognised or ambiguous syntax is flagged instead of silently dropped.
 
 See the [supported syntax](Documentation/SUPPORTED_SYNTAX.md), [coverage index](Documentation/CLARIS_SCRIPT_STEP_COVERAGE.md) and [AI review workflow](Documentation/AI_REVIEW_WORKFLOW.md) for details. Private FileMaker clipboard structures can change between versions.
+
+## Frequently asked questions
+
+### Can I paste a ChatGPT or Claude script into FileMaker Pro?
+
+Copy the AI tool's readable script text into Script Bridge, validate it, then use **Copy to FileMaker** to prepare native clipboard steps. Paste those steps into FileMaker Pro Script Workspace. This is a manual copy-and-paste workflow; no ChatGPT or Claude account connection is needed. Unsupported steps may require manual setup; see [support boundaries](#clear-support-boundaries).
+
+### Is Script Bridge free and open source?
+
+Yes. Script Bridge is free to download and its source is available under [GPL-3.0-or-later](LICENSE). FileMaker Pro needs a separate valid licence. Optional local models retain their own licences, listed in the [model catalogue](Desktop/ai/catalogue.json).
+
+### Does FileMaker script conversion work offline?
+
+Yes. Text conversion and syntax validation run locally without an AI model. Optional local AI generation also runs on your computer after downloading a model. Using an external AI service follows that service's network requirements and privacy terms.
+
+### Which operating systems and FileMaker versions are supported?
+
+Downloads are available for Apple Silicon and Intel Macs running macOS 13.3 or later, and Windows 10/11 x64. FileMaker Pro 26 is the documented clipboard target and has its own operating-system requirements. macOS receives daily hands-on use; native Windows and Intel Mac acceptance testing remain pending. See [download requirements and testing status](#download).
+
+### Can I edit a FileMaker script exported as a PDF?
+
+Yes, with an optional local model. Attach a script PDF with selectable text in **AI playground**, describe the change and generate a full replacement draft. Scanned PDFs need OCR first. Review against the original and test before use; see [the PDF amendment workflow](#amend-a-printed-script-pdf).
 
 ## Your scripts stay on your computer
 
