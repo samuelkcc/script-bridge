@@ -199,6 +199,8 @@ swift test --disable-sandbox --scratch-path .build/desktop-tests
 
 Current launchable deliverables are kept in `dist/`. Archives, component sources, staging and release records live in `.build/releases/1.1.0/`. The older `Scripts/package-app.sh` builds the previous SwiftUI edition. Use the [Windows guide](Documentation/WINDOWS_BUILD.md) for the matching cross-build toolchain and installer recipe.
 
+For a new computer or disk cleanup, follow the [recovery and housekeeping guide](Documentation/RECOVERY_AND_HOUSEKEEPING.md). It lists required assets, rebuild commands, local backup exclusions and GitHub Desktop checks.
+
 </details>
 
 ## Licence and acknowledgements

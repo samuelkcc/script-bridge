@@ -31,6 +31,11 @@ opt-level = "s"
 lto = true
 strip = true
 
+# Stripped proc-macro dylibs can fail to load on macOS 27 (Rust #157750).
+# These compile-time tools are not shipped; keep the final application stripped.
+[profile.release.build-override]
+strip = false
+
 # Model verification must remain practical even in development builds.
 [profile.dev.package.sha2]
 opt-level = 3

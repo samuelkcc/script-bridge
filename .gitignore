@@ -4,6 +4,8 @@ dist/
 tmp/
 *.fmp12
 Documentation/HANDOVER_*.md
+# Local disaster-recovery snapshots can contain unfinished work and private QA data.
+Recovery/
 Desktop/src-tauri/target/
 Desktop/src-tauri/gen/
 Desktop/src-tauri/binaries/*
