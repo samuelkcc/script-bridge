@@ -65,6 +65,8 @@ EDITABLE_SUBSET = {
     "Flush Cache to Disk",
     "Flush Web Viewer Cookies",
     "Go to Layout",
+    "Go to Object",
+    "Go to Portal Row",
     "Go to Record/Request/Page",
     "Halt Script",
     "If",

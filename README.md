@@ -8,13 +8,13 @@
 
 <p>A free, open-source desktop app for macOS and Windows.<br>Convert readable script text to native FileMaker Pro clipboard steps, or copy existing steps back to text.<br>Bring drafts from ChatGPT, Claude or another AI tool, or generate them locally with Gemma or Qwen.</p>
 
-**Version 1.1.0 · PDF amendments, script colours and a lighter local model**
+**Version 1.1.1 · Native object and portal navigation steps**
 
 <sub>Independent software by SCKC. Not affiliated with, sponsored by or endorsed by Claris International Inc.</sub>
 
-<p><a href="https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-macOS.zip"><img src="Documentation/images/v1.1.0/download-macos.svg" alt="Download for macOS — Apple Silicon" height="44"></a>&nbsp;<a href="https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-macOS-Universal.zip"><img src="Documentation/images/v1.1.0/download-macos-universal.svg" alt="Download for macOS — Universal, Apple Silicon and Intel" height="44"></a>&nbsp;<a href="https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-Windows-x64.exe"><img src="Documentation/images/v1.1.0/download-windows.svg" alt="Download Windows x64 — testing build" height="44"></a></p>
+<p><a href="https://github.com/samuelkcc/script-bridge/releases/download/v1.1.1/Script-Bridge-macOS.zip"><img src="Documentation/images/v1.1.0/download-macos.svg" alt="Download for macOS — Apple Silicon" height="44"></a>&nbsp;<a href="https://github.com/samuelkcc/script-bridge/releases/download/v1.1.1/Script-Bridge-macOS-Universal.zip"><img src="Documentation/images/v1.1.0/download-macos-universal.svg" alt="Download for macOS — Universal, Apple Silicon and Intel" height="44"></a>&nbsp;<a href="https://github.com/samuelkcc/script-bridge/releases/download/v1.1.1/Script-Bridge-Windows-x64.exe"><img src="Documentation/images/v1.1.0/download-windows.svg" alt="Download Windows x64 — testing build" height="44"></a></p>
 
-[Download](#download) · [Quick start](#your-first-script) · [FAQ](#frequently-asked-questions) · [Supported syntax](Documentation/SUPPORTED_SYNTAX.md) · [Release notes](https://github.com/samuelkcc/script-bridge/releases/tag/v1.1.0)
+[Download](#download) · [Quick start](#your-first-script) · [FAQ](#frequently-asked-questions) · [Supported syntax](Documentation/SUPPORTED_SYNTAX.md) · [Release notes](https://github.com/samuelkcc/script-bridge/releases/tag/v1.1.1)
 
 </div>
 
@@ -37,7 +37,11 @@ AI tools produce readable text. FileMaker Pro Script Workspace expects a private
 
 You choose the script, destination and insertion point. The app prepares clipboard data; FileMaker remains where you review and run your work.
 
-## New in 1.1.0
+## New in 1.1.1
+
+Convert `Go to Object` and `Go to Portal Row` to native FileMaker steps, including object-name calculations, portal row calculations, selection, exit and dialog options. Copied native steps also convert back to editable text.
+
+## Added in 1.1.0
 
 Script Bridge keeps the shared Mac and Windows workspace introduced in 1.0.0 and adds a workflow for amending scripts printed from FileMaker Pro.
 
@@ -51,9 +55,9 @@ Script Bridge keeps the shared Mac and Windows workspace introduced in 1.0.0 and
 
 | Platform | Package | Status and requirements |
 | --- | --- | --- |
-| **macOS · Apple Silicon** | [Download the Apple Silicon ZIP](https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-macOS.zip) | Apple Silicon only · macOS 13.3 or later · daily use and extensive hands-on testing |
-| **macOS · Universal** | [Download the universal ZIP](https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-macOS-Universal.zip) | Apple Silicon and Intel · macOS 13.3 or later · current 1.1.0 interface and features |
-| **Windows** | [Download the x64 installer](https://github.com/samuelkcc/script-bridge/releases/download/v1.1.0/Script-Bridge-Windows-x64.exe) | Windows 10/11 x64 · available for native Windows testing |
+| **macOS · Apple Silicon** | [Download the Apple Silicon ZIP](https://github.com/samuelkcc/script-bridge/releases/download/v1.1.1/Script-Bridge-macOS.zip) | Apple Silicon only · macOS 13.3 or later · daily use and extensive hands-on testing |
+| **macOS · Universal** | [Download the universal ZIP](https://github.com/samuelkcc/script-bridge/releases/download/v1.1.1/Script-Bridge-macOS-Universal.zip) | Apple Silicon and Intel · macOS 13.3 or later · current interface and features |
+| **Windows** | [Download the x64 installer](https://github.com/samuelkcc/script-bridge/releases/download/v1.1.1/Script-Bridge-Windows-x64.exe) | Windows 10/11 x64 · available for native Windows testing |
 
 ### Developed on macOS, shared with Windows users
 
@@ -69,9 +73,9 @@ If something does not work as expected, please [report it here on GitHub](https:
 
 **Windows:** Run the installer, then open the app from Start. The installer includes the conversion worker and required DLLs; Swift does not need to be installed. Setup obtains Microsoft WebView2 from Microsoft if it is missing, which requires internet access. The installer is unsigned. Installation, display, FileMaker copy/paste and AI inference still need native Windows acceptance testing. [Windows test guide →](Documentation/WINDOWS_BUILD.md#windows-acceptance)
 
-Both Mac downloads provide **version 1.1.0**, including PDF amendments, syntax colours and the AI playground. Intel Mac users can use the current universal edition without returning to an older release. The universal package includes native host and conversion-worker code for both architectures, with Metal inference on Apple Silicon and CPU inference on Intel. Intel hardware and FileMaker acceptance testing remain pending.
+Both Mac downloads provide **version 1.1.1**. The universal edition also runs on Intel Macs. The universal package includes native host and conversion-worker code for both architectures, with Metal inference on Apple Silicon and CPU inference on Intel. Intel hardware and FileMaker acceptance testing remain pending.
 
-FileMaker Pro 26 is the documented clipboard target and needs a separate valid licence and Claris-supported operating system. Model weights are optional downloads and are not included in the packages. Matching source archives, original component sources and checksums are attached to the [1.1.0 release](https://github.com/samuelkcc/script-bridge/releases/tag/v1.1.0).
+FileMaker Pro 26 is the documented clipboard target and needs a separate valid licence and Claris-supported operating system. Model weights are optional downloads and are not included in the packages. Matching source archives, original component sources and checksums are attached to the [1.1.1 release](https://github.com/samuelkcc/script-bridge/releases/tag/v1.1.1).
 
 ## Your first script
 
@@ -124,7 +128,7 @@ Copy selected native steps in FileMaker, or copy a whole script from the Scripts
 
 ## Clear support boundaries
 
-The app's reference covers **216 official script steps**, with **98 editable subsets** and completion templates for the remaining **118**. Editable support can be limited to specific verified option profiles; a recognised step name does not mean every option is reconstructable.
+The app's reference covers **216 official script steps**, with **100 editable subsets** and completion templates for the remaining **116**. Editable support can be limited to specific verified option profiles; a recognised step name does not mean every option is reconstructable.
 
 | Result | What it means |
 | --- | --- |
@@ -168,7 +172,7 @@ Questions, attached PDF text, generated drafts and preserved native steps stay i
 
 The shared interface uses HTML, CSS and JavaScript inside a **Tauri 2 / Rust** desktop host. The tested **Swift** engine runs as a persistent local worker. **llama.cpp** supplies optional native inference. The architecture keeps platform clipboard code separate while sharing the workflow and UI.
 
-Automated verification includes 107 Swift tests, 9 JavaScript/worker tests and 12 Rust host, knowledge and codec tests. Separate integration checks cover download resume and checksum rejection, plus real Gemma 4 E4B and Qwen 9B short-script generation through the Swift validator. Gemma 4 E4B also produced a complete replacement for the private seven-page PDF fixture with the requested threshold branches and zero syntax errors. Long PDF amendments remain drafts: Qwen 9B exposed omitted requirements and syntax errors, which blocked native copying. Neither check establishes correct business logic in a live database. The 35B model has not been inference-tested. Native Windows acceptance is pending.
+Automated verification includes 110 Swift tests, 9 JavaScript/worker tests and 12 Rust host, knowledge and codec tests. Separate integration checks cover download resume and checksum rejection, plus real Gemma 4 E4B and Qwen 9B short-script generation through the Swift validator. Gemma 4 E4B also produced a complete replacement for the private seven-page PDF fixture with the requested threshold branches and zero syntax errors. Long PDF amendments remain drafts: Qwen 9B exposed omitted requirements and syntax errors, which blocked native copying. Neither check establishes correct business logic in a live database. The 35B model has not been inference-tested. Native Windows acceptance is pending.
 
 [Architecture and platform status](Documentation/DESKTOP_ARCHITECTURE.md) · [Windows build instructions](Documentation/WINDOWS_BUILD.md) · [Release history](RELEASE_NOTES.md)
 
@@ -197,7 +201,7 @@ Run the Swift suite with an Xcode installation that provides XCTest:
 swift test --disable-sandbox --scratch-path .build/desktop-tests
 ```
 
-Current launchable deliverables are kept in `dist/`. Archives, component sources, staging and release records live in `.build/releases/1.1.0/`. The older `Scripts/package-app.sh` builds the previous SwiftUI edition. Use the [Windows guide](Documentation/WINDOWS_BUILD.md) for the matching cross-build toolchain and installer recipe.
+Current launchable deliverables are kept in `dist/`. Archives, component sources, staging and release records live in `.build/releases/1.1.1/`. The older `Scripts/package-app.sh` builds the previous SwiftUI edition. Use the [Windows guide](Documentation/WINDOWS_BUILD.md) for the matching cross-build toolchain and installer recipe.
 
 For a new computer or disk cleanup, follow the [recovery and housekeeping guide](Documentation/RECOVERY_AND_HOUSEKEEPING.md). It lists required assets, rebuild commands, local backup exclusions and GitHub Desktop checks.
 

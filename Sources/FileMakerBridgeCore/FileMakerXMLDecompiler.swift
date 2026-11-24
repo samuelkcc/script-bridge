@@ -343,6 +343,9 @@ public struct FileMakerXMLDecompiler: Sendable {
             let withDialog = boolAttribute(node.child(named: "NoInteract"), name: "state") ? "Off" : "On"
             return supported(name, "Sort Records [ With dialog: \(withDialog) ]")
 
+        case 99:
+            return renderPortalRow(node, name: name)
+
         case 16:
             let location = node.child(named: "RowPageLocation")?.attributes["value"] ?? "First"
             if location.caseInsensitiveCompare("ByCalculation") == .orderedSame {
@@ -521,6 +524,23 @@ public struct FileMakerXMLDecompiler: Sendable {
             result += " ; Wait for completion: \(wait ? "On" : "Off") ]"
             return supported(name, result)
 
+        case 145:
+            guard hasNavigationOptions(node, allowed: ["ObjectName", "Repetition"]),
+                  let object = node.child(named: "ObjectName"),
+                  object.children.map(\.name) == ["Calculation"],
+                  let objectName = object.directText(named: "Calculation"), !objectName.isEmpty else {
+                return renderGeneric(node, id: id, name: name)
+            }
+            var options = ["Object Name: \(objectName)"]
+            if let repetition = node.child(named: "Repetition") {
+                guard repetition.children.map(\.name) == ["Calculation"],
+                      let calculation = repetition.directText(named: "Calculation"), !calculation.isEmpty else {
+                    return renderGeneric(node, id: id, name: name)
+                }
+                options.append("Repetition: \(calculation)")
+            }
+            return supported(name, "Go to Object [ \(options.joined(separator: " ; ")) ]")
+
         case 167:
             guard let objectName = node.text(at: ["ObjectName", "Calculation"]), !objectName.isEmpty else {
                 return renderGeneric(node, id: id, name: name)
@@ -563,6 +583,47 @@ public struct FileMakerXMLDecompiler: Sendable {
         default:
             return renderGeneric(node, id: id, name: name)
         }
+    }
+
+    private func renderPortalRow(_ node: ParsedXMLNode, name: String) -> RenderedStep {
+        guard hasNavigationOptions(node, allowed: ["NoInteract", "SelectAll", "Exit", "RowPageLocation", "Calculation"]),
+              let select = navigationToggle(node, named: "SelectAll"),
+              let noInteract = navigationToggle(node, named: "NoInteract"),
+              let exitAfterLast = navigationToggle(node, named: "Exit"),
+              let location = node.child(named: "RowPageLocation")?.attributes["value"] else {
+            return renderGeneric(node, id: 99, name: name)
+        }
+        var options = ["Select: \(select)"]
+        if location == "ByCalculation", node.child(named: "Exit") == nil,
+           let calculation = node.directText(named: "Calculation"), !calculation.isEmpty {
+            options.append("With dialog: \(noInteract == "On" ? "Off" : "On")")
+            options.append("By calculation: \(calculation)")
+        } else if ["First", "Last", "Previous", "Next"].contains(location),
+                  node.child(named: "Calculation") == nil, noInteract == "Off" {
+            options.append(location)
+            if location == "Next" || location == "Previous" {
+                options.append("Exit after last: \(exitAfterLast)")
+            } else if node.child(named: "Exit") != nil {
+                return renderGeneric(node, id: 99, name: name)
+            }
+        } else {
+            return renderGeneric(node, id: 99, name: name)
+        }
+        return supported(name, "Go to Portal Row [ \(options.joined(separator: " ; ")) ]")
+    }
+
+    private func hasNavigationOptions(_ node: ParsedXMLNode, allowed: Set<String>) -> Bool {
+        let children = node.children.map(\.name)
+        return (node.attributes["enable"] ?? "True").caseInsensitiveCompare("True") == .orderedSame
+            && Set(children).count == children.count
+            && children.allSatisfy { allowed.contains($0) || $0 == "DisableStepCollapsed" }
+            && navigationToggle(node, named: "DisableStepCollapsed") == "Off"
+    }
+
+    private func navigationToggle(_ node: ParsedXMLNode, named name: String) -> String? {
+        guard let child = node.child(named: name) else { return "Off" }
+        guard child.children.isEmpty, let state = child.attributes["state"] else { return nil }
+        return onOffText(state)
     }
 
     private func renderGeneric(_ node: ParsedXMLNode, id: Int?, name: String) -> RenderedStep {

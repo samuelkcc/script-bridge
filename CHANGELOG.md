@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.1 — 24 November 2026
+
+- Convert `Go to Object` and `Go to Portal Row` between readable text and native FileMaker clipboard steps. The bridge carries object-name and repetition calculations, row selection, fixed and calculated destinations, exit behaviour and dialog settings.
+- Add both steps to the editable step reference and syntax guide.
+
 ## 1.1.0 — 21 October 2026
 
 - Rename the independent app to **Script Bridge**, with FileMaker Pro compatibility text and a prominent non-affiliation notice.

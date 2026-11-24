@@ -83,6 +83,8 @@ public enum CompiledStep: Sendable, Hashable {
     case performScript(name: String, parameter: String?)
     case performScriptOnServer(name: String, parameter: String?, waitForCompletion: Bool)
     case goToLayout(name: String)
+    case goToObject(name: String, repetition: String)
+    case goToPortalRow(destination: RecordPageDestination, select: Bool, exitAfterLast: Bool, withDialog: Bool)
     case goToRecord(destination: RecordPageDestination, exitAfterLast: Bool)
     case showCustomDialog(title: String?, message: String, buttons: [DialogButton])
     case newWindow(options: NewWindowOptions)

@@ -394,6 +394,28 @@ public struct FileMakerTextParser: Sendable {
             return .step(.goToLayout(name: name))
         }
 
+        if let body = TextUtilities.bracketBody(forPrefix: "Go to Object", in: line) {
+            let components = TextUtilities.topLevelComponents(in: body)
+            guard let first = components.first,
+                  let name = TextUtilities.value(afterLabel: "Object Name:", in: first),
+                  !name.isEmpty else {
+                return .malformed("Go to Object requires Object Name: calculation")
+            }
+            if components.count == 1 {
+                return .step(.goToObject(name: name, repetition: "1"))
+            }
+            guard components.count == 2,
+                  let repetition = TextUtilities.value(afterLabel: "Repetition:", in: components[1]),
+                  !repetition.isEmpty else {
+                return .malformed("Go to Object supports only one optional Repetition: calculation")
+            }
+            return .step(.goToObject(name: name, repetition: repetition))
+        }
+
+        if let body = TextUtilities.bracketBody(forPrefix: "Go to Portal Row", in: line) {
+            return parsePortalRow(body)
+        }
+
         if let body = TextUtilities.bracketBody(forPrefix: "Go to Record/Request/Page", in: line) {
             let components = TextUtilities.topLevelComponents(in: body)
             guard let rawDestination = components.first, !rawDestination.isEmpty else {
@@ -1013,6 +1035,64 @@ public struct FileMakerTextParser: Sendable {
             return .field(table: field.table, name: field.field)
         }
         return nil
+    }
+
+    private func parsePortalRow(_ body: String) -> LineParseResult {
+        let toggleLabels = ["Select:", "Exit after last:", "With dialog:"]
+        var options: [String: Bool] = [:]
+        var rawDestination: String?
+        for component in TextUtilities.topLevelComponents(in: body) {
+            if let label = toggleLabels.first(where: { TextUtilities.caseInsensitivePrefix($0, in: component) }) {
+                guard options[label] == nil,
+                      let value = TextUtilities.value(afterLabel: label, in: component).flatMap(parseOnOff) else {
+                    return .malformed("Go to Portal Row requires one On or Off value for \(label)")
+                }
+                options[label] = value
+            } else if component.caseInsensitiveCompare("Exit after last") == .orderedSame {
+                guard options["Exit after last:"] == nil else {
+                    return .malformed("Go to Portal Row accepts Exit after last only once")
+                }
+                options["Exit after last:"] = true
+            } else {
+                guard rawDestination == nil, !component.isEmpty else {
+                    return .malformed("Go to Portal Row requires exactly one row destination")
+                }
+                rawDestination = component
+            }
+        }
+
+        guard let rawDestination else {
+            return .malformed("Go to Portal Row requires First, Last, Previous, Next, or a row calculation")
+        }
+        let destination: RecordPageDestination
+        switch rawDestination.lowercased() {
+        case "first": destination = .first
+        case "last": destination = .last
+        case "previous": destination = .previous
+        case "next": destination = .next
+        default:
+            let explicitCalculation = TextUtilities.value(afterLabel: "By calculation:", in: rawDestination)
+            let calculation = explicitCalculation ?? rawDestination
+            let hasUnknownLabel = explicitCalculation == nil
+                && rawDestination.range(of: #"^[A-Za-z][A-Za-z ]*:(?!:)"#, options: .regularExpression) != nil
+            guard !calculation.isEmpty, rawDestination.lowercased() != "by calculation", !hasUnknownLabel else {
+                return .malformed("Go to Portal Row requires a valid destination or By calculation: calculation")
+            }
+            destination = .byCalculation(calculation)
+        }
+
+        if options["Exit after last:"] != nil, destination != .next, destination != .previous {
+            return .malformed("Go to Portal Row Exit after last is only valid with Next or Previous")
+        }
+        if options["With dialog:"] != nil {
+            guard case .byCalculation = destination else {
+                return .malformed("Go to Portal Row With dialog is only valid with a row calculation")
+            }
+        }
+        return .step(.goToPortalRow(
+            destination: destination, select: options["Select:"] ?? false,
+            exitAfterLast: options["Exit after last:"] ?? false, withDialog: options["With dialog:"] ?? false
+        ))
     }
 
     private func parseDataAndURLStep(_ line: String) -> LineParseResult? {

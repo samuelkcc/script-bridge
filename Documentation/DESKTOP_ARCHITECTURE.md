@@ -44,7 +44,7 @@ Windows has a distinct clipboard transport. It cannot use macOS pasteboard alias
 
 **Use Rust for the desktop host and operating-system integration now. Retain the tested Swift engine until a measured bottleneck or distribution requirement justifies a complete port.**
 
-Both Swift and Rust compile to native machine code. Rewriting in Rust does not by itself demonstrate a performance improvement. The engine contains over 4,000 lines of parser/compiler/decompiler logic, 98 editable subsets, multiline calculations, option defaults and preservation rules backed by real FileMaker captures. A wholesale rewrite risks losing those details.
+Both Swift and Rust compile to native machine code. Rewriting in Rust does not by itself demonstrate a performance improvement. The engine contains over 4,000 lines of parser/compiler/decompiler logic, 100 editable subsets, multiline calculations, option defaults and preservation rules backed by real FileMaker captures. A wholesale rewrite risks losing those details.
 
 A local debug-worker measurement on 20 October 2026, including JSON IPC, compiled 100 repeated Set Variable steps at a median **6.85 ms**, and 1,000 steps at **70.35 ms** (ten measured calls after two warmups; no clipboard access). These are synthetic measurements on this Mac, not a cross-language benchmark or a general performance guarantee. The frontend's 240 ms debounce avoids conversion on every keystroke, and Rust dispatches conversion outside the UI thread.
 

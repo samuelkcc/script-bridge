@@ -1,3 +1,9 @@
+## Script Bridge 1.1.1 (24 November 2026)
+
+Script Bridge now converts `Go to Object` and `Go to Portal Row` between readable text and native FileMaker clipboard steps. This covers named layout objects and repeating fields, first and last rows, previous and next rows, and calculated row numbers. Row selection, exit behaviour and dialog settings are preserved.
+
+The navigation steps passed a FileMaker Pro paste and copy round trip on Apple Silicon. The Windows x64 installer was cross-built and passed package inspection. Native Windows and Intel FileMaker testing remain pending.
+
 ## Script Bridge 1.1.0 (21 October 2026)
 
 The independent app is now **Script Bridge**, for use with FileMaker Pro. This release restores workspace syntax colours, adds local PDF script attachments with preview/removal and full-replacement draft instructions, and adds Google Gemma 4 E4B alongside Qwen 9B and 35B. About, model notices and matching component sources are updated.

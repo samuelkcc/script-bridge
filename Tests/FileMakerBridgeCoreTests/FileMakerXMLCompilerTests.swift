@@ -125,6 +125,112 @@ final class FileMakerXMLCompilerTests: XCTestCase {
         XCTAssertTrue(imported.text.contains("Go to Record/Request/Page [ By calculation: Get ( RecordNumber ) + 2 ]"))
     }
 
+    func testObjectAndPortalRowMatchFileMakerClipboard() {
+        let source = """
+        Go to Object [ Object Name: $portalName ]
+        Go to Portal Row [ Select: On ; First ]
+        Go to Portal Row [ Select: On ; Next ; Exit after last: Off ]
+        Go to Portal Row [ Select: On ; With dialog: Off ; $portalRow ]
+        """
+        // Copied from FileMaker Pro after configuring each step in Script Workspace.
+        let native = """
+        <fmxmlsnippet type="FMObjectList">
+          <Step enable="True" id="145" name="Go to Object">
+            <DisableStepCollapsed state="False"></DisableStepCollapsed>
+            <ObjectName><Calculation><![CDATA[$portalName]]></Calculation></ObjectName>
+            <Repetition><Calculation><![CDATA[1]]></Calculation></Repetition>
+          </Step>
+          <Step enable="True" id="99" name="Go to Portal Row">
+            <NoInteract state="False"></NoInteract>
+            <SelectAll state="True"></SelectAll>
+            <DisableStepCollapsed state="False"></DisableStepCollapsed>
+            <RowPageLocation value="First"></RowPageLocation>
+          </Step>
+          <Step enable="True" id="99" name="Go to Portal Row">
+            <NoInteract state="False"></NoInteract>
+            <SelectAll state="True"></SelectAll>
+            <Exit state="False"></Exit>
+            <DisableStepCollapsed state="False"></DisableStepCollapsed>
+            <RowPageLocation value="Next"></RowPageLocation>
+          </Step>
+          <Step enable="True" id="99" name="Go to Portal Row">
+            <NoInteract state="True"></NoInteract>
+            <SelectAll state="True"></SelectAll>
+            <DisableStepCollapsed state="False"></DisableStepCollapsed>
+            <RowPageLocation value="ByCalculation"></RowPageLocation>
+            <Calculation><![CDATA[$portalRow]]></Calculation>
+          </Step>
+        </fmxmlsnippet>
+        """
+        let result = compiler.compile(source, options: .init(convertUnsupportedLinesToComments: false))
+        XCTAssertTrue(result.issues.isEmpty)
+        XCTAssertEqual(result.supportedStepCount, 4)
+        XCTAssertEqual(
+            result.xml.replacingOccurrences(of: #">\s+<"#, with: "><", options: .regularExpression),
+            native.replacingOccurrences(of: #">\s+<"#, with: "><", options: .regularExpression)
+        )
+
+        let imported = decompiler.decompile(native)
+        XCTAssertEqual(imported.unsupportedStepCount, 0)
+        XCTAssertTrue(imported.text.contains("Go to Portal Row [ Select: On ; Next ; Exit after last: Off ]"))
+        XCTAssertTrue(imported.text.contains("Go to Portal Row [ Select: On ; With dialog: Off ; By calculation: $portalRow ]"))
+        XCTAssertEqual(compiler.compile(imported.text).xml, result.xml)
+    }
+
+    func testNavigationOptionsRoundTripWithNestedCalculations() {
+        let source = """
+        Go to Object [ Object Name: GetValue ( $objects ; 1 ) ; Repetition: $repetition ]
+        Go to Portal Row [ Last ]
+        Go to Portal Row [ Previous ; Exit after last: On ]
+        Go to Portal Row [ Select: Off ; With dialog: On ; By calculation: Max ( 1 ; Items::Row ) ]
+        Go to Portal Row [ Items::Row ]
+        """
+        let result = compiler.compile(source)
+        XCTAssertTrue(result.issues.isEmpty)
+        XCTAssertEqual(result.steps, [
+            .goToObject(name: "GetValue ( $objects ; 1 )", repetition: "$repetition"),
+            .goToPortalRow(destination: .last, select: false, exitAfterLast: false, withDialog: false),
+            .goToPortalRow(destination: .previous, select: false, exitAfterLast: true, withDialog: false),
+            .goToPortalRow(destination: .byCalculation("Max ( 1 ; Items::Row )"), select: false, exitAfterLast: false, withDialog: true),
+            .goToPortalRow(destination: .byCalculation("Items::Row"), select: false, exitAfterLast: false, withDialog: false)
+        ])
+        let imported = decompiler.decompile(result.xml)
+        XCTAssertEqual(imported.unsupportedStepCount, 0)
+        XCTAssertEqual(compiler.compile(imported.text).steps, result.steps)
+    }
+
+    func testNavigationRejectsUnmappedOptionsAndPreservesUnmappedXML() {
+        for source in [
+            "Go to Object [ Repetition: 2 ]",
+            "Go to Object [ Object Name: $portal ; Extra: On ]",
+            "Go to Portal Row [ Select: Unknown ; Next ]",
+            "Go to Portal Row [ Select: On ; Select: Off ; Next ]",
+            "Go to Portal Row [ First ; Exit after last: Off ]",
+            "Go to Portal Row [ Next ; With dialog: Off ]",
+            "Go to Portal Row [ Destination: First ]",
+            "Go to Portal Row [ By calculation: ]"
+        ] {
+            let result = compiler.compile(source, options: .init(convertUnsupportedLinesToComments: false))
+            XCTAssertEqual(result.errorCount, 1, source)
+            XCTAssertFalse(result.canCopyToFileMaker, source)
+        }
+        let imported = decompiler.decompile("""
+        <fmxmlsnippet type="FMObjectList">
+          <Step enable="False" id="145" name="Go to Object">
+            <ObjectName><Calculation><![CDATA[$portalName]]></Calculation></ObjectName>
+          </Step>
+          <Step enable="True" id="99" name="Go to Portal Row">
+            <RowPageLocation value="First"></RowPageLocation><FutureOption state="True"></FutureOption>
+          </Step>
+        </fmxmlsnippet>
+        """)
+        XCTAssertEqual(imported.unsupportedStepCount, 2)
+        let rebuilt = compiler.compile(imported.text, preservedSteps: imported.preservedSteps)
+        XCTAssertEqual(rebuilt.preservedStepCount, 2)
+        XCTAssertTrue(rebuilt.xml.contains("enable=\"False\""))
+        XCTAssertTrue(rebuilt.xml.contains("<FutureOption state=\"True\">"))
+    }
+
     func testDKApprovalWindowFindAndRecordStepsUseNativeClipboardShapes() {
         let source = """
         New Window [ Style: Document ; Name: $workWindow ; Using layout: “dk_approval_db_list” (dk_approval_db_list) ; Close: Yes ; Minimize: No ; Maximize: Yes ; Resize: Yes ; Menu Bar: Yes ; Dim parent window: No ; Toolbars: Yes ]
@@ -900,7 +1006,7 @@ final class FileMakerXMLCompilerTests: XCTestCase {
     func testOfficialCatalogueMatchesAuditedClarisReference() {
         XCTAssertEqual(FileMakerScriptStepCatalog.entries.count, 216)
         XCTAssertEqual(FileMakerScriptStepCatalog.categories.count, 14)
-        XCTAssertEqual(FileMakerScriptStepCatalog.editableSubsetCount, 98)
+        XCTAssertEqual(FileMakerScriptStepCatalog.editableSubsetCount, 100)
         XCTAssertEqual(Set(FileMakerScriptStepCatalog.entries.map(\.id)).count, 216)
 
         XCTAssertEqual(

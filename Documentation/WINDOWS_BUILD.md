@@ -1,4 +1,4 @@
-# Windows x64 build — 1.1.0
+# Windows x64 build — 1.1.1
 
 The Windows app uses the same `Desktop/web/` assets as macOS. The Rust host, Swift conversion worker and llama.cpp runtime are native x64 Windows binaries. `dist/Script Bridge.exe` is a per-user installer, not the bare application executable. It installs the app, its DLLs and an uninstaller; users do not need a Swift installation. Setup downloads Microsoft WebView2 from Microsoft if it is missing. Model weights remain optional downloads.
 
@@ -60,7 +60,7 @@ python3 Scripts/package-windows.py
 
 Packaging checks every staged app/runtime EXE and DLL is AMD64 PE32+, resolves regular and delayed imports recursively, and fails for missing non-system dependencies. It includes the required Swift/Foundation/ICU and Microsoft VC redistributable DLLs, their original licence texts, the app licence and full component inventory. The zlib-compressed NSIS installer creates a Start menu shortcut and registered uninstaller without requiring administrator rights. Uninstall removes package-owned files and retains model data; use Remove model in the playground to reclaim models.
 
-Staging, file hashes, the dependency audit and build receipt are retained in `.build/releases/1.1.0/`; only the final `.exe` is placed in `dist`. Build matching source archives with the desktop packager when distributing a release. The Mac build writes its `.app` beside the installer and source archives outside `dist`.
+Staging, file hashes, the dependency audit and build receipt are retained in `.build/releases/1.1.1/`. The final `.exe` is placed in `dist` beside the Mac apps. Build matching source archives with the desktop packager when distributing a release.
 
 ## Windows acceptance
 

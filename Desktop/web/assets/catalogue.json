@@ -218,13 +218,13 @@
   {
     "category": "Navigation script steps",
     "name": "Go to Object",
-    "support": "preserveOnly",
+    "support": "editableSubset",
     "url": "https://help.claris.com/en/pro-help/content/go-to-object.html"
   },
   {
     "category": "Navigation script steps",
     "name": "Go to Portal Row",
-    "support": "preserveOnly",
+    "support": "editableSubset",
     "url": "https://help.claris.com/en/pro-help/content/go-to-portal-row.html"
   },
   {

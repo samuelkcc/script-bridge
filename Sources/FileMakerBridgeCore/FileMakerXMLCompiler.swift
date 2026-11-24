@@ -157,6 +157,46 @@ public struct FileMakerXMLCompiler: Sendable {
             ].joined(separator: "\n")
             return stepElement(id: 6, name: "Go to Layout", body: body)
 
+        case .goToObject(let objectName, let repetition), .refreshObject(let objectName, let repetition):
+            let body = [
+                "  \(collapsedNode)",
+                "  <ObjectName>",
+                "    <Calculation>\(cdata(objectName))</Calculation>",
+                "  </ObjectName>",
+                "  <Repetition>",
+                "    <Calculation>\(cdata(repetition))</Calculation>",
+                "  </Repetition>"
+            ].joined(separator: "\n")
+            if case .goToObject = step {
+                return stepElement(id: 145, name: "Go to Object", body: body)
+            }
+            return stepElement(id: 167, name: "Refresh Object", body: body)
+
+        case .goToPortalRow(let destination, let select, let exitAfterLast, let withDialog):
+            let location: String
+            let calculation: String?
+            switch destination {
+            case .first: (location, calculation) = ("First", nil)
+            case .last: (location, calculation) = ("Last", nil)
+            case .previous: (location, calculation) = ("Previous", nil)
+            case .next: (location, calculation) = ("Next", nil)
+            case .byCalculation(let value): (location, calculation) = ("ByCalculation", value)
+            }
+            let noInteract = calculation != nil && !withDialog
+            var nodes = [
+                "  \(stateNode("NoInteract", noInteract))",
+                "  \(stateNode("SelectAll", select))"
+            ]
+            if destination == .next || destination == .previous {
+                nodes.append("  \(stateNode("Exit", exitAfterLast))")
+            }
+            nodes.append("  \(collapsedNode)")
+            nodes.append("  <RowPageLocation value=\"\(location)\"></RowPageLocation>")
+            if let calculation {
+                nodes.append("  <Calculation>\(cdata(calculation))</Calculation>")
+            }
+            return stepElement(id: 99, name: "Go to Portal Row", body: nodes.joined(separator: "\n"))
+
         case .goToRecord(let destination, let exitAfterLast):
             var nodes: [String] = []
             let location: String
@@ -535,18 +575,6 @@ public struct FileMakerXMLCompiler: Sendable {
                 "  </DialogOptions>"
             ].joined(separator: "\n")
             return stepElement(id: 131, name: "Insert File", body: body)
-
-        case .refreshObject(let objectName, let repetition):
-            let body = [
-                "  <DisableStepCollapsed state=\"False\"></DisableStepCollapsed>",
-                "  <ObjectName>",
-                "    <Calculation>\(cdata(objectName))</Calculation>",
-                "  </ObjectName>",
-                "  <Repetition>",
-                "    <Calculation>\(cdata(repetition))</Calculation>",
-                "  </Repetition>"
-            ].joined(separator: "\n")
-            return stepElement(id: 167, name: "Refresh Object", body: body)
 
         case .preservedXML(_, _, let xml):
             return xml

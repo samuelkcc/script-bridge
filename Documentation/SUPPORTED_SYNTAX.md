@@ -72,6 +72,14 @@ Halt Script
 
 ```text
 Go to Layout [ "Layout Name" ]
+Go to Object [ Object Name: $portalName ]
+Go to Object [ Object Name: "Repeating field" ; Repetition: 2 ]
+Go to Portal Row [ Select: On ; First ]
+Go to Portal Row [ Select: Off ; Last ]
+Go to Portal Row [ Select: On ; Previous ; Exit after last: On ]
+Go to Portal Row [ Select: On ; Next ; Exit after last: Off ]
+Go to Portal Row [ Select: On ; With dialog: Off ; $portalRow ]
+Go to Portal Row [ Select: Off ; With dialog: On ; By calculation: $portalRow ]
 Go to Record/Request/Page [ First ]
 Go to Record/Request/Page [ Last ]
 Go to Record/Request/Page [ Previous ]
@@ -87,6 +95,8 @@ Perform Script on Server [ "Script Name" ; Parameter: calculation ; Wait for com
 ```
 
 Straight or smart quotes are accepted around layout and script names. A copied FileMaker context suffix such as `(table occurrence)` is removed from the object name. References are resolved by the destination FileMaker file when pasted.
+
+`Go to Object` takes an object-name calculation and defaults to repetition 1. For `Go to Portal Row`, omitted toggles default to Off. `Exit after last` applies to Next and Previous. `With dialog` applies to a calculated row, which can be written with or without the `By calculation:` label.
 
 ## Dialogs
 

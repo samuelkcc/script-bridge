@@ -17,8 +17,8 @@ import importlib.util
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / 'Desktop/src-tauri/Cargo.toml'
 VERSION = tomllib.loads(MANIFEST.read_text())['package']['version']
-MAC_BUILD = '2026102104'
-UNIVERSAL_MAC_BUILD = '2026102801'
+MAC_BUILD = '2026112401'
+UNIVERSAL_MAC_BUILD = '2026112402'
 HOST = 'filemaker-script-bridge-desktop' + ('.exe' if os.name == 'nt' else '')
 WORKER = 'FileMakerBridgeWorker' + ('.exe' if os.name == 'nt' else '')
 

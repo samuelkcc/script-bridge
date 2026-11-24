@@ -53,8 +53,8 @@ This is a coverage index, not a copy of Claris documentation. Follow each step l
 | [Go to Layout](https://help.claris.com/en/pro-help/content/go-to-layout.html) | Editable subset |
 | [Go to List of Records](https://help.claris.com/en/pro-help/content/go-to-list-of-records.html) | Preserve only |
 | [Go to Next Field](https://help.claris.com/en/pro-help/content/go-to-next-field.html) | Preserve only |
-| [Go to Object](https://help.claris.com/en/pro-help/content/go-to-object.html) | Preserve only |
-| [Go to Portal Row](https://help.claris.com/en/pro-help/content/go-to-portal-row.html) | Preserve only |
+| [Go to Object](https://help.claris.com/en/pro-help/content/go-to-object.html) | Editable subset |
+| [Go to Portal Row](https://help.claris.com/en/pro-help/content/go-to-portal-row.html) | Editable subset |
 | [Go to Previous Field](https://help.claris.com/en/pro-help/content/go-to-previous-field.html) | Preserve only |
 | [Go to Record/Request/Page](https://help.claris.com/en/pro-help/content/go-to-record-request-page.html) | Editable subset |
 | [Go to Related Record](https://help.claris.com/en/pro-help/content/go-to-related-record.html) | Preserve only |
